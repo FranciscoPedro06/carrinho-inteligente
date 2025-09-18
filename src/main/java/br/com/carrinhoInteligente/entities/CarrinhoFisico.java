@@ -4,23 +4,46 @@ import java.time.LocalDateTime;
 
 public class CarrinhoFisico {
     private int id;
-    protected long lojaId;
-    protected String codigoQr;
-    protected String status;
-    protected LocalDateTime criadoEm;
+    private String codigoQr;
+    private String status;
+    private String criadoEm;
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public CarrinhoFisico(int id, String codigoQr, String status, String criadoEm) {
+        this.id = id;
+        this.codigoQr = codigoQr;
+        this.status = status;
+        this.criadoEm = criadoEm;
+    }
 
-    public long getLojaId() { return lojaId; }
-    public void setLojaId(long lojaId) { this.lojaId = lojaId; }
+    public int getId() {
+        return id;
+    }
 
-    public String getCodigoQr() { return codigoQr; }
-    public void setCodigoQr(String codigoQr) { this.codigoQr = codigoQr; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getCodigoQr() {
+        return codigoQr;
+    }
 
-    public LocalDateTime getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
+    public void setCodigoQr(String codigoQr) {
+        this.codigoQr = codigoQr;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(String criadoEm) {
+        this.criadoEm = criadoEm;
+    }
 }

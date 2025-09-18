@@ -5,27 +5,19 @@ import java.time.LocalDateTime;
 
 public class Estoque {
     private int id;
-    protected long produtoId;
-    protected long sessaoId;
-    protected BigDecimal quantidade;
-    protected LocalDateTime criadoEm;
-    protected LocalDateTime expiraEm;
+    private int quantidade;
+    private String criadoEm;
+    private String expiraEm;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public long getProdutoId() { return produtoId; }
-    public void setProdutoId(long produtoId) { this.produtoId = produtoId; }
+    public int getQuantidade() { return quantidade; }
+    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
-    public long getSessaoId() { return sessaoId; }
-    public void setSessaoId(long sessaoId) { this.sessaoId = sessaoId; }
+    public String getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(String criadoEm) { this.criadoEm = criadoEm; }
 
-    public BigDecimal getQuantidade() { return quantidade; }
-    public void setQuantidade(BigDecimal quantidade) { this.quantidade = quantidade; }
-
-    public LocalDateTime getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
-
-    public LocalDateTime getExpiraEm() { return expiraEm; }
-    public void setExpiraEm(LocalDateTime expiraEm) { this.expiraEm = expiraEm; }
+    public String getExpiraEm() { return expiraEm; }
+    public void setExpiraEm(String expiraEm) { this.expiraEm = expiraEm; }
 }

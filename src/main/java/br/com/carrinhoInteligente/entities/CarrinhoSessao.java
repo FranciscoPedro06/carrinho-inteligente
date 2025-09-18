@@ -5,31 +5,23 @@ import java.time.LocalDateTime;
 
 public class CarrinhoSessao {
     private int id;
-    protected long carrinhoId;
-    protected long clienteId;
-    protected String status;
-    protected BigDecimal total;
-    protected LocalDateTime criadoEm;
-    protected LocalDateTime atualizadoEm;
+    private String status;
+    private int total;
+    private String criadoEm;
+    private String atualizadoEm;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public long getCarrinhoId() { return carrinhoId; }
-    public void setCarrinhoId(long carrinhoId) { this.carrinhoId = carrinhoId; }
-
-    public long getClienteId() { return clienteId; }
-    public void setClienteId(long clienteId) { this.clienteId = clienteId; }
-
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public BigDecimal getTotal() { return total; }
-    public void setTotal(BigDecimal total) { this.total = total; }
+    public int getTotal() { return total; }
+    public void setTotal(int total) { this.total = total; }
 
-    public LocalDateTime getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
+    public String getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(String criadoEm) { this.criadoEm = criadoEm; }
 
-    public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
+    public String getAtualizadoEm() { return atualizadoEm; }
+    public void setAtualizadoEm(String atualizadoEm) { this.atualizadoEm = atualizadoEm; }
 }
