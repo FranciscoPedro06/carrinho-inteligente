@@ -1,4 +1,4 @@
 package br.com.carrinhoInteligente.repositories;
 
-public class CarrinhoRepository {
+public class Loja {
 }
