@@ -9,17 +9,17 @@ import java.util.Optional;
 public class CarrinhoFisicoRepository {
     private final List<CarrinhoFisico> carrinhos = new ArrayList<>();
 
-    // criar
+    // CREATE
     public void salvar(CarrinhoFisico carrinho) {
         carrinhos.add(carrinho);
     }
 
-    // buscar todos
+    // READ - buscar todos
     public List<CarrinhoFisico> listarTodos() {
-        return new ArrayList<>(carrinhos); // retorna cópia
+        return new ArrayList<>(carrinhos); 
     }
 
-    // buscar por id
+    // READ - buscar por id
     public Optional<CarrinhoFisico> buscarPorId(int id) {
         return carrinhos.stream()
                 .filter(c -> c.getId() == id)
@@ -27,7 +27,7 @@ public class CarrinhoFisicoRepository {
     }
 
 
-    // atualizar
+    // UPDATE
     public boolean atualizar(int id, CarrinhoFisico novoCarrinho) {
         Optional<CarrinhoFisico> existente = buscarPorId(id);
         if (existente.isPresent()) {
@@ -40,7 +40,7 @@ public class CarrinhoFisicoRepository {
         return false;
     }
 
-    // deletar
+    // DELETE
     public boolean deletar(int id) {
         return carrinhos.removeIf(c -> c.getId() == id);
     }
