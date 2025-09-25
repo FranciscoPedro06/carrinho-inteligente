@@ -14,26 +14,26 @@ public class LojaFacade {
     }
 
     // CREATE
-    public void criarLoja(Loja loja) {
+    public void salvar(Loja loja) {
         application.salvarLoja(loja);
     }
 
     // READ
-    public List<Loja> obterTodasLojas() {
+    public List<Loja> listarTodos() {
         return application.listarLojas();
     }
 
-    public Optional<Loja> obterLojaPorId(int id) {
+    public Optional<Loja> buscarPorId(int id) {
         return application.buscarLojaPorId(id);
     }
 
     // UPDATE
-    public boolean editarLoja(int id, Loja loja) {
+    public boolean atualizar(int id, Loja loja) {
         return application.atualizarLoja(id, loja);
     }
 
     // DELETE
-    public boolean removerLoja(int id) {
+    public boolean deletar(int id) {
         return application.deletarLoja(id);
     }
 }
