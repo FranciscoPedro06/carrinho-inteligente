@@ -14,26 +14,26 @@ public class PagamentoFacade {
     }
 
     // CREATE
-    public void criarPagamento(Pagamento pagamento) {
+    public void salvar(Pagamento pagamento) {
         application.salvarPagamento(pagamento);
     }
 
     // READ
-    public List<Pagamento> obterTodosPagamentos() {
+    public List<Pagamento> listarTodos() {
         return application.listarPagamentos();
     }
 
-    public Optional<Pagamento> obterPagamentoPorId(int id) {
+    public Optional<Pagamento> buscarPorId(int id) {
         return application.buscarPagamentoPorId(id);
     }
 
     // UPDATE
-    public boolean editarPagamento(int id, Pagamento pagamento) {
+    public boolean atualizar(int id, Pagamento pagamento) {
         return application.atualizarPagamento(id, pagamento);
     }
 
     // DELETE
-    public boolean removerPagamento(int id) {
+    public boolean deletar(int id) {
         return application.deletarPagamento(id);
     }
 }
