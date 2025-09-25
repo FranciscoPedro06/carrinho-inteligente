@@ -14,26 +14,26 @@ public class ClienteFacade {
     }
 
     // CREATE
-    public void criarCliente(Cliente cliente) {
+    public void salvar(Cliente cliente) {
         application.salvarCliente(cliente);
     }
 
     // READ
-    public List<Cliente> obterTodosClientes() {
+    public List<Cliente> listarTodos() {
         return application.listarClientes();
     }
 
-    public Optional<Cliente> obterClientePorId(int id) {
+    public Optional<Cliente> buscarPorId(int id) {
         return application.buscarClientePorId(id);
     }
 
     // UPDATE
-    public boolean editarCliente(int id, Cliente cliente) {
+    public boolean atualizar(int id, Cliente cliente) {
         return application.atualizarCliente(id, cliente);
     }
 
     // DELETE
-    public boolean removerCliente(int id) {
+    public boolean deletar(int id) {
         return application.deletarCliente(id);
     }
 }
