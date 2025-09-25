@@ -14,26 +14,26 @@ public class CarrinhoItemFacade {
     }
 
     // CREATE
-    public void adicionarItem(CarrinhoItem item) {
+    public void salvar(CarrinhoItem item) {
         application.salvarItem(item);
     }
 
     // READ
-    public List<CarrinhoItem> obterItens() {
+    public List<CarrinhoItem> listarTodos() {
         return application.listarItens();
     }
 
-    public Optional<CarrinhoItem> obterItemPorId(int id) {
+    public Optional<CarrinhoItem> buscarPorId(int id) {
         return application.buscarItemPorId(id);
     }
 
     // UPDATE
-    public boolean editarItem(int id, CarrinhoItem item) {
+    public boolean atualizar(int id, CarrinhoItem item) {
         return application.atualizarItem(id, item);
     }
 
     // DELETE
-    public boolean removerItem(int id) {
+    public boolean deletar(int id) {
         return application.deletarItem(id);
     }
 }
