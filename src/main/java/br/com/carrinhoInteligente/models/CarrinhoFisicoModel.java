@@ -1,12 +1,13 @@
 package br.com.carrinhoInteligente.models;
 
+
+import java.time.LocalDateTime;
+
 public class CarrinhoFisicoModel {
     private int id;
-    protected String codigoQr;
-    protected String status;
-    protected String criadoEm;
-
-    public CarrinhoFisicoModel() {}
+    private String codigoQr;
+    private String status;
+    private String criadoEm;
 
     public CarrinhoFisicoModel(int id, String codigoQr, String status, String criadoEm) {
         this.id = id;
@@ -15,25 +16,35 @@ public class CarrinhoFisicoModel {
         this.criadoEm = criadoEm;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getCodigoQr() { return codigoQr; }
-    public void setCodigoQr(String codigoQr) { this.codigoQr = codigoQr; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getCodigoQr() {
+        return codigoQr;
+    }
 
-    public String getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(String criadoEm) { this.criadoEm = criadoEm; }
+    public void setCodigoQr(String codigoQr) {
+        this.codigoQr = codigoQr;
+    }
 
-    @Override
-    public String toString() {
-        return "CarrinhoFisicoModel{" +
-                "id=" + id +
-                ", codigoQr='" + codigoQr + '\'' +
-                ", status='" + status + '\'' +
-                ", criadoEm='" + criadoEm + '\'' +
-                '}';
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(String criadoEm) {
+        this.criadoEm = criadoEm;
     }
 }

@@ -1,21 +1,14 @@
 package br.com.carrinhoInteligente.models;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 public class CarrinhoItemModel {
     private int id;
-    protected int quantidade;
-    protected Float precoUnit;
-    protected Float precoTotal;
-    protected String adicionadoEm;
-
-    public CarrinhoItemModel() {}
-
-    public CarrinhoItemModel(int id, int quantidade, Float precoUnit, Float precoTotal, String adicionadoEm) {
-        this.id = id;
-        this.quantidade = quantidade;
-        this.precoUnit = precoUnit;
-        this.precoTotal = precoTotal;
-        this.adicionadoEm = adicionadoEm;
-    }
+    private int quantidade;
+    private Float precoUnit;
+    private Float precoTotal;
+    private String adicionadoEm;
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -31,15 +24,4 @@ public class CarrinhoItemModel {
 
     public String getAdicionadoEm() { return adicionadoEm; }
     public void setAdicionadoEm(String adicionadoEm) { this.adicionadoEm = adicionadoEm; }
-
-    @Override
-    public String toString() {
-        return "CarrinhoItemModel{" +
-                "id=" + id +
-                ", quantidade=" + quantidade +
-                ", precoUnit=" + precoUnit +
-                ", precoTotal=" + precoTotal +
-                ", adicionadoEm='" + adicionadoEm + '\'' +
-                '}';
-    }
 }
