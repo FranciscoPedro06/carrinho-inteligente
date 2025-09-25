@@ -14,26 +14,26 @@ public class EstoqueFacade {
     }
 
     // CREATE
-    public void adicionarEstoque(Estoque estoque) {
+    public void salvar(Estoque estoque) {
         application.salvarEstoque(estoque);
     }
 
     // READ
-    public List<Estoque> obterTodosEstoques() {
+    public List<Estoque> listarTodos() {
         return application.listarEstoques();
     }
 
-    public Optional<Estoque> obterEstoquePorId(int id) {
+    public Optional<Estoque> buscarPorId(int id) {
         return application.buscarEstoquePorId(id);
     }
 
     // UPDATE
-    public boolean editarEstoque(int id, Estoque estoque) {
+    public boolean atualizar(int id, Estoque estoque) {
         return application.atualizarEstoque(id, estoque);
     }
 
     // DELETE
-    public boolean removerEstoque(int id) {
+    public boolean deletar(int id) {
         return application.deletarEstoque(id);
     }
 }
