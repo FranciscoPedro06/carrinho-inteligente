@@ -14,26 +14,26 @@ public class CarrinhoSessaoFacade {
     }
 
     // CREATE
-    public void criarSessao(CarrinhoSessao sessao) {
+    public void salvar(CarrinhoSessao sessao) {
         application.salvarSessao(sessao);
     }
 
     // READ
-    public List<CarrinhoSessao> obterTodasSessoes() {
+    public List<CarrinhoSessao> listarTodos() {
         return application.listarSessoes();
     }
 
-    public Optional<CarrinhoSessao> obterSessaoPorId(int id) {
+    public Optional<CarrinhoSessao> buscarPorid(int id) {
         return application.buscarSessaoPorId(id);
     }
 
     // UPDATE
-    public boolean editarSessao(int id, CarrinhoSessao sessao) {
+    public boolean atualizar(int id, CarrinhoSessao sessao) {
         return application.atualizarSessao(id, sessao);
     }
 
     // DELETE
-    public boolean removerSessao(int id) {
+    public boolean deletar(int id) {
         return application.deletarSessao(id);
     }
 }
