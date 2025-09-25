@@ -14,26 +14,26 @@ public class CarrinhoFisicoFacade {
     }
 
     // CREATE
-    public void criarCarrinho(CarrinhoFisico carrinho) {
+    public void salvar(CarrinhoFisico carrinho) {
         application.salvarCarrinho(carrinho);
     }
 
     // READ
-    public List<CarrinhoFisico> obterTodosCarrinhos() {
+    public List<CarrinhoFisico> listarTodos() {
         return application.listarCarrinhos();
     }
 
-    public Optional<CarrinhoFisico> obterCarrinhoPorId(int id) {
+    public Optional<CarrinhoFisico> buscarPorId(int id) {
         return application.buscarCarrinhoPorId(id);
     }
 
     // UPDATE
-    public boolean editarCarrinho(int id, CarrinhoFisico carrinho) {
+    public boolean atualizar(int id, CarrinhoFisico carrinho) {
         return application.atualizarCarrinho(id, carrinho);
     }
 
     // DELETE
-    public boolean removerCarrinho(int id) {
+    public boolean deletar(int id) {
         return application.deletarCarrinho(id);
     }
 }
