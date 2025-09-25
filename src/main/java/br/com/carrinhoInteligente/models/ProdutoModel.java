@@ -2,44 +2,55 @@ package br.com.carrinhoInteligente.models;
 
 public class ProdutoModel {
     private int idProduto;
-    protected String codigoBarras;
-    protected String nome;
-    protected Double preco;
-    protected String criadoEm;
+    private String codigoBarras;
+    private String nome;
+    private Double preco;
+    private String criadoEm;
 
-    public ProdutoModel() {}
-
-    public ProdutoModel(int idProduto, String codigoBarras, String nome, Double preco, String criadoEm) {
-        this.idProduto = idProduto;
+    public ProdutoModel(String codigoBarras, String nome, Double preco, String criadoEm) {
         this.codigoBarras = codigoBarras;
         this.nome = nome;
         this.preco = preco;
         this.criadoEm = criadoEm;
     }
 
-    public int getIdProduto() { return idProduto; }
-    public void setIdProduto(int idProduto) { this.idProduto = idProduto; }
+    public int getIdProduto() {
+        return idProduto;
+    }
 
-    public String getCodigoBarras() { return codigoBarras; }
-    public void setCodigoBarras(String codigoBarras) { this.codigoBarras = codigoBarras; }
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
 
-    public Double getPreco() { return preco; }
-    public void setPreco(Double preco) { this.preco = preco; }
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
 
-    public String getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(String criadoEm) { this.criadoEm = criadoEm; }
+    public String getNome() {
+        return nome;
+    }
 
-    @Override
-    public String toString() {
-        return "ProdutoModel{" +
-                "idProduto=" + idProduto +
-                ", codigoBarras='" + codigoBarras + '\'' +
-                ", nome='" + nome + '\'' +
-                ", preco=" + preco +
-                ", criadoEm='" + criadoEm + '\'' +
-                '}';
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public String getCriadoEm() {
+        return criadoEm;
+    }
+
+    public void setCriadoEm(String criadoEm) {
+        this.criadoEm = criadoEm;
     }
 }
