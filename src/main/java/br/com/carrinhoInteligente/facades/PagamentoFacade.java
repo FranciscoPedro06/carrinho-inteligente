@@ -1,6 +1,6 @@
 package br.com.carrinhoInteligente.facades;
 
-import br.com.carrinhoInteligente.application.PagamentoApplication;
+import br.com.carrinhoInteligente.applications.PagamentoApplication;
 import br.com.carrinhoInteligente.entities.Pagamento;
 
 import java.util.List;
@@ -15,25 +15,25 @@ public class PagamentoFacade {
 
     // CREATE
     public void salvar(Pagamento pagamento) {
-        application.salvarPagamento(pagamento);
+        application.salvar(pagamento);
     }
 
     // READ
     public List<Pagamento> listarTodos() {
-        return application.listarPagamentos();
+        return application.listarTodos();
     }
 
     public Optional<Pagamento> buscarPorId(int id) {
-        return application.buscarPagamentoPorId(id);
+        return application.buscarPorId(id);
     }
 
     // UPDATE
     public boolean atualizar(int id, Pagamento pagamento) {
-        return application.atualizarPagamento(id, pagamento);
+        return application.atualizar(id, pagamento);
     }
 
     // DELETE
     public boolean deletar(int id) {
-        return application.deletarPagamento(id);
+        return application.deletar(id);
     }
 }

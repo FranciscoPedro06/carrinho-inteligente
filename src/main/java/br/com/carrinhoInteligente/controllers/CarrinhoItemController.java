@@ -1,38 +1,46 @@
+package br.com.carrinhoInteligente.controllers;
+
+import br.com.carrinhoInteligente.entities.CarrinhoItem;
+import br.com.carrinhoInteligente.facades.CarrinhoItemFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/carrinho-item")
+@RequestMapping("/api/carrinho-itens")
 public class CarrinhoItemController {
 
     private final CarrinhoItemFacade carrinhoItemFacade;
 
+    @Autowired
     public CarrinhoItemController(CarrinhoItemFacade carrinhoItemFacade) {
         this.carrinhoItemFacade = carrinhoItemFacade;
     }
 
-    @PostMapping
-    public CarrinhoItem criar(@RequestBody CarrinhoItem item) {
-        return carrinhoItemFacade.criarCarrinhoItem(item);
+    @PostMapping("/adicionar")
+    public void salvar(@RequestBody CarrinhoItem item) {
+        carrinhoItemFacade.salvar(item);
+    }
+
+    @GetMapping("/")
+    public List<CarrinhoItem> listarTodos() {
+        return carrinhoItemFacade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public CarrinhoItem obter(@PathVariable Long id) {
-        return carrinhoItemFacade.obterCarrinhoItem(id);
+    public Optional<CarrinhoItem> buscarPorId(@PathVariable int id) {
+        return carrinhoItemFacade.buscarPorId(id);
     }
 
-    @PutMapping("/{id}")
-    public CarrinhoItem editar(@PathVariable Long id, @RequestBody CarrinhoItem item) {
-        return carrinhoItemFacade.editarCarrinhoItem(id, item);
+    @PutMapping("/editar/{id}")
+    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoItem item) {
+        return carrinhoItemFacade.atualizar(id, item);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        carrinhoItemFacade.deletarCarrinhoItem(id);
-    }
-
-    @GetMapping
-    public List<CarrinhoItem> listar() {
-        return carrinhoItemFacade.listarCarrinhoItens();
+    @DeleteMapping("/excluir/{id}")
+    public boolean deletar(@PathVariable int id) {
+        return carrinhoItemFacade.deletar(id);
     }
 }

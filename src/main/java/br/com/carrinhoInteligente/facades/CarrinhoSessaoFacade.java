@@ -1,6 +1,6 @@
 package br.com.carrinhoInteligente.facades;
 
-import br.com.carrinhoInteligente.application.CarrinhoSessaoApplication;
+import br.com.carrinhoInteligente.applications.CarrinhoSessaoApplication;
 import br.com.carrinhoInteligente.entities.CarrinhoSessao;
 
 import java.util.List;
@@ -15,25 +15,25 @@ public class CarrinhoSessaoFacade {
 
     // CREATE
     public void salvar(CarrinhoSessao sessao) {
-        application.salvarSessao(sessao);
+        application.salvar(sessao);
     }
 
     // READ
     public List<CarrinhoSessao> listarTodos() {
-        return application.listarSessoes();
+        return application.listarTodos();
     }
 
     public Optional<CarrinhoSessao> buscarPorid(int id) {
-        return application.buscarSessaoPorId(id);
+        return application.buscarPorId(id);
     }
 
     // UPDATE
     public boolean atualizar(int id, CarrinhoSessao sessao) {
-        return application.atualizarSessao(id, sessao);
+        return application.atualizar(id, sessao);
     }
 
     // DELETE
     public boolean deletar(int id) {
-        return application.deletarSessao(id);
+        return application.deletar(id);
     }
 }

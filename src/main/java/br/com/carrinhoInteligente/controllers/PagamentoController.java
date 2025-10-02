@@ -1,38 +1,46 @@
+package br.com.carrinhoInteligente.controllers;
+
+import br.com.carrinhoInteligente.entities.Pagamento;
+import br.com.carrinhoInteligente.facades.PagamentoFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/pagamentos")
+@RequestMapping("/api/pagamentos")
 public class PagamentoController {
 
-    private final PagamentoFacade facade;
+    private final PagamentoFacade pagamentoFacade;
 
-    public PagamentoController(PagamentoFacade facade) {
-        this.facade = facade;
+    @Autowired
+    public PagamentoController(PagamentoFacade pagamentoFacade) {
+        this.pagamentoFacade = pagamentoFacade;
     }
 
-    @PostMapping
-    public Pagamento criar(@RequestBody Pagamento obj) {
-        return facade.criarPagamento(obj);
+    @PostMapping("/adicionar")
+    public void salvar(@RequestBody Pagamento pagamento) {
+        pagamentoFacade.salvar(pagamento);
+    }
+
+    @GetMapping("/")
+    public List<Pagamento> listarTodos() {
+        return pagamentoFacade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Pagamento obter(@PathVariable Long id) {
-        return facade.obterPagamento(id);
+    public Optional<Pagamento> buscarPorId(@PathVariable int id) {
+        return pagamentoFacade.buscarPorId(id);
     }
 
-    @PutMapping("/{id}")
-    public Pagamento editar(@PathVariable Long id, @RequestBody Pagamento obj) {
-        return facade.editarPagamento(id, obj);
+    @PutMapping("/editar/{id}")
+    public boolean atualizar(@PathVariable int id, @RequestBody Pagamento pagamento) {
+        return pagamentoFacade.atualizar(id, pagamento);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        facade.deletarPagamento(id);
-    }
-
-    @GetMapping
-    public List<Pagamento> listar() {
-        return facade.listarPagamentos();
+    @DeleteMapping("/excluir/{id}")
+    public boolean deletar(@PathVariable int id) {
+        return pagamentoFacade.deletar(id);
     }
 }
