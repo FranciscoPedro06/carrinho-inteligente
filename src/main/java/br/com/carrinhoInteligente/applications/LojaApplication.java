@@ -2,10 +2,12 @@ package br.com.carrinhoInteligente.applications;
 
 import br.com.carrinhoInteligente.entities.Loja;
 import br.com.carrinhoInteligente.repositories.LojaRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class LojaApplication {
 
     private final LojaRepository repository;

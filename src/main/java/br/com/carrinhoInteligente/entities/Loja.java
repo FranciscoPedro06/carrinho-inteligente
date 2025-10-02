@@ -1,13 +1,20 @@
 package br.com.carrinhoInteligente.entities;
 
+import java.time.LocalDateTime;
+
 public class Loja {
     private int idLoja;
     private String nome;
-    private String criadoEm;
+    private LocalDateTime criadoEm;
 
-    public Loja(String nome, String criadoEm) {
+    public Loja(int idLoja, String nome, LocalDateTime criadoEm) {
+        this.idLoja = idLoja;
         this.nome = nome;
         this.criadoEm = criadoEm;
+    }
+
+    public Loja() {
+
     }
 
     public int getIdLoja() {return idLoja;}
@@ -24,11 +31,11 @@ public class Loja {
         this.nome = nome;
     }
 
-    public String getCriadoEm() {
+    public LocalDateTime getCriadoEm() {
         return criadoEm;
     }
 
-    public void setCriadoEm(String criadoEm) {
+    public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
     }
 }

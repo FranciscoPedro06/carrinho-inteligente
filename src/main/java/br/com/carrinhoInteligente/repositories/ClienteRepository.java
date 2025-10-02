@@ -1,11 +1,13 @@
 package br.com.carrinhoInteligente.repositories;
 
 import br.com.carrinhoInteligente.entities.Cliente;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ClienteRepository {
     private final List<Cliente> clientes = new ArrayList<>();
 

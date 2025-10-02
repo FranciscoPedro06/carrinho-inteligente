@@ -1,14 +1,36 @@
 package br.com.carrinhoInteligente.models;
 
-import java.math.BigDecimal;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "carrinho_sessao")
 public class CarrinhoSessaoModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String status;
+
     private int total;
-    private String criadoEm;
-    private String atualizadoEm;
+
+    @Column(name = "criado_em")
+    private LocalDateTime criadoEm;
+
+    @Column(name = "atualizado_em")
+    private LocalDateTime atualizadoEm;
+
+    public CarrinhoSessaoModel() {
+    }
+
+    public CarrinhoSessaoModel(int id, String status, int total, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
+        this.id = id;
+        this.status = status;
+        this.total = total;
+        this.criadoEm = criadoEm;
+        this.atualizadoEm = atualizadoEm;
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -19,9 +41,9 @@ public class CarrinhoSessaoModel {
     public int getTotal() { return total; }
     public void setTotal(int total) { this.total = total; }
 
-    public String getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(String criadoEm) { this.criadoEm = criadoEm; }
+    public LocalDateTime getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
 
-    public String getAtualizadoEm() { return atualizadoEm; }
-    public void setAtualizadoEm(String atualizadoEm) { this.atualizadoEm = atualizadoEm; }
+    public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
+    public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
 }

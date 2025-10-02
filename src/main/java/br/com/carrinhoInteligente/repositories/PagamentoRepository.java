@@ -1,11 +1,13 @@
 package br.com.carrinhoInteligente.repositories;
 
 import br.com.carrinhoInteligente.entities.Pagamento;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class PagamentoRepository {
     private final List<Pagamento> pagamentos = new ArrayList<>();
 

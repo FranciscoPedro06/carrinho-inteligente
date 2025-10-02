@@ -3,12 +3,24 @@ package br.com.carrinhoInteligente.entities;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+
 public class CarrinhoItem {
     private int id;
     private int quantidade;
     private Float precoUnit;
     private Float precoTotal;
-    private String adicionadoEm;
+    private LocalDateTime adicionadoEm;
+
+    public CarrinhoItem(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.precoUnit = precoUnit;
+        this.precoTotal = precoTotal;
+        this.adicionadoEm = adicionadoEm;
+    }
+    public CarrinhoItem() {
+
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -22,6 +34,6 @@ public class CarrinhoItem {
     public Float getPrecoTotal() { return precoTotal; }
     public void setPrecoTotal(Float precoTotal) { this.precoTotal = precoTotal; }
 
-    public String getAdicionadoEm() { return adicionadoEm; }
-    public void setAdicionadoEm(String adicionadoEm) { this.adicionadoEm = adicionadoEm; }
+    public LocalDateTime getAdicionadoEm() { return adicionadoEm; }
+    public void setAdicionadoEm(LocalDateTime adicionadoEm) { this.adicionadoEm = adicionadoEm; }
 }

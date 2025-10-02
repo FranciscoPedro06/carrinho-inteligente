@@ -1,19 +1,24 @@
 package br.com.carrinhoInteligente.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public class CarrinhoFisico {
     private int id;
     private String codigoQr;
     private String status;
-    private String criadoEm;
 
-    public CarrinhoFisico(int id, String codigoQr, String status, String criadoEm) {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime criadoEm;
+
+    public CarrinhoFisico(int id, String codigoQr, String status, LocalDateTime criadoEm) {
         this.id = id;
         this.codigoQr = codigoQr;
         this.status = status;
         this.criadoEm = criadoEm;
     }
+
+    public CarrinhoFisico() { }
 
     public int getId() {
         return id;
@@ -39,11 +44,11 @@ public class CarrinhoFisico {
         this.status = status;
     }
 
-    public String getCriadoEm() {
+    public LocalDateTime getCriadoEm() {
         return criadoEm;
     }
 
-    public void setCriadoEm(String criadoEm) {
+    public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
     }
 }

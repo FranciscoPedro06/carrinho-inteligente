@@ -4,7 +4,6 @@ import br.com.carrinhoInteligente.entities.Estoque;
 import br.com.carrinhoInteligente.facades.EstoqueFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 

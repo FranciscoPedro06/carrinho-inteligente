@@ -2,10 +2,11 @@ package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.EstoqueApplication;
 import br.com.carrinhoInteligente.entities.Estoque;
-
+import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class EstoqueFacade {
     private final EstoqueApplication application;
 

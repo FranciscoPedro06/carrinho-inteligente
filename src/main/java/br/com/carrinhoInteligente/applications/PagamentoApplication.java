@@ -1,15 +1,18 @@
 package br.com.carrinhoInteligente.applications;
 
 import br.com.carrinhoInteligente.entities.Pagamento;
-
+import br.com.carrinhoInteligente.repositories.PagamentoRepository;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+
 public class PagamentoApplication {
 
-    private final PagementoRepository repository;
+    private final PagamentoRepository repository;
 
-    public PagamentoApplication(PagementoRepository repository) {
+    public PagamentoApplication(PagamentoRepository repository) {
         this.repository = repository;
     }
 
@@ -38,25 +41,5 @@ public class PagamentoApplication {
         return repository.deletar(id);
     }
 
-    private class PagementoRepository {
-        public void salvar(Pagamento pagamento) {
 
-        }
-
-        public List<Pagamento> listarTodos() {
-            return null;
-        }
-
-        public Optional<Pagamento> buscarPorId(int id) {
-            return null;
-        }
-
-        public boolean atualizar(int id, Pagamento pagamentoAtualizado) {
-            return false;
-        }
-
-        public boolean deletar(int id) {
-            return false;
-        }
-    }
 }

@@ -1,15 +1,17 @@
 package br.com.carrinhoInteligente.applications;
 
 import br.com.carrinhoInteligente.entities.Produto;
-
+import br.com.carrinhoInteligente.repositories.ProdutoRepository;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProdutoApplication {
 
-    private final ProdutoRpository repository;
+    private final ProdutoRepository repository;
 
-    public ProdutoApplication(ProdutoRpository repository) {
+    public ProdutoApplication(ProdutoRepository repository) {
         this.repository = repository;
     }
 
@@ -38,25 +40,4 @@ public class ProdutoApplication {
         return repository.deletar(id);
     }
 
-    private class ProdutoRpository {
-        public void salvar(Produto produto) {
-
-        }
-
-        public List<Produto> listarTodos() {
-            return null;
-        }
-
-        public Optional<Produto> buscarPorId(int id) {
-            return null;
-        }
-
-        public boolean atualizar(int id, Produto produtoAtualizado) {
-            return false;
-        }
-
-        public boolean deletar(int id) {
-            return false;
-        }
-    }
 }
