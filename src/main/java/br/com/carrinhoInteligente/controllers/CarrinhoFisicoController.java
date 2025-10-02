@@ -4,12 +4,11 @@ import br.com.carrinhoInteligente.entities.CarrinhoFisico;
 import br.com.carrinhoInteligente.facades.CarrinhoFisicoFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/carrinhos")
+@RequestMapping("/api/carrinhoFisico")
 public class CarrinhoFisicoController {
 
     private final CarrinhoFisicoFacade carrinhoFisicoFacade;
@@ -22,8 +21,10 @@ public class CarrinhoFisicoController {
     // CREATE
     @PostMapping("/adicionar")
     public void salvar(@RequestBody CarrinhoFisico carrinho) {
+        System.out.println("POST recebido: " + carrinho.getCodigoQr() + " | " + carrinho.getStatus() + " | " + carrinho.getCriadoEm());
         carrinhoFisicoFacade.salvar(carrinho);
     }
+
 
     // READ - Listar todos
     @GetMapping("/")

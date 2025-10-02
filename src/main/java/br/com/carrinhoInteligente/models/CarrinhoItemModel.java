@@ -1,14 +1,37 @@
 package br.com.carrinhoInteligente.models;
 
-import java.math.BigDecimal;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "carrinho_item")
 public class CarrinhoItemModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private int quantidade;
+
+    @Column(name = "preco_unit")
     private Float precoUnit;
+
+    @Column(name = "preco_total")
     private Float precoTotal;
-    private String adicionadoEm;
+
+    @Column(name = "adicionado_em")
+    private LocalDateTime adicionadoEm;
+
+    public CarrinhoItemModel() {
+    }
+
+    public CarrinhoItemModel(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.precoUnit = precoUnit;
+        this.precoTotal = precoTotal;
+        this.adicionadoEm = adicionadoEm;
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -22,6 +45,6 @@ public class CarrinhoItemModel {
     public Float getPrecoTotal() { return precoTotal; }
     public void setPrecoTotal(Float precoTotal) { this.precoTotal = precoTotal; }
 
-    public String getAdicionadoEm() { return adicionadoEm; }
-    public void setAdicionadoEm(String adicionadoEm) { this.adicionadoEm = adicionadoEm; }
+    public LocalDateTime getAdicionadoEm() { return adicionadoEm; }
+    public void setAdicionadoEm(LocalDateTime adicionadoEm) { this.adicionadoEm = adicionadoEm; }
 }

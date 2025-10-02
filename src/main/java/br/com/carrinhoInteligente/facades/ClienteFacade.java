@@ -2,10 +2,11 @@ package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.ClienteApplication;
 import br.com.carrinhoInteligente.entities.Cliente;
-
+import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class ClienteFacade {
     private final ClienteApplication application;
 

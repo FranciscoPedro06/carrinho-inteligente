@@ -1,19 +1,26 @@
 package br.com.carrinhoInteligente.entities;
 
+import java.time.LocalDateTime;
+
 public class Pagamento {
     private int id;
     private String metodo;
     private Double valor;
     private String status;
-    private String criadoEm;
-    private String atualizadoEm;
+    private LocalDateTime criadoEm;
+    private LocalDateTime atualizadoEm;
 
-    public Pagamento(String metodo, Double valor, String status, String criadoEm, String atualizadoEm) {
+    public Pagamento(int id, String metodo, Double valor, String status, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
+        this.id = id;
         this.metodo = metodo;
         this.valor = valor;
         this.status = status;
         this.criadoEm = criadoEm;
         this.atualizadoEm = atualizadoEm;
+    }
+
+    public Pagamento() {
+
     }
 
     public int getId() {
@@ -48,19 +55,19 @@ public class Pagamento {
         this.status = status;
     }
 
-    public String getCriadoEm() {
+    public LocalDateTime getCriadoEm() {
         return criadoEm;
     }
 
-    public void setCriadoEm(String criadoEm) {
+    public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
     }
 
-    public String getAtualizadoEm() {
+    public LocalDateTime getAtualizadoEm() {
         return atualizadoEm;
     }
 
-    public void setAtualizadoEm(String atualizadoEm) {
+    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
         this.atualizadoEm = atualizadoEm;
     }
 }

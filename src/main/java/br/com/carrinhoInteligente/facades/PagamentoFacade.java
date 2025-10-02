@@ -2,10 +2,11 @@ package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.PagamentoApplication;
 import br.com.carrinhoInteligente.entities.Pagamento;
-
+import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class PagamentoFacade {
     private final PagamentoApplication application;
 

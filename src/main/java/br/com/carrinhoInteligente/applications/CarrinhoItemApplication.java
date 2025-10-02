@@ -2,9 +2,12 @@ package br.com.carrinhoInteligente.applications;
 
 import br.com.carrinhoInteligente.entities.CarrinhoItem;
 import br.com.carrinhoInteligente.repositories.CarrinhoItemRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+@Service
 
 public class CarrinhoItemApplication {
 
