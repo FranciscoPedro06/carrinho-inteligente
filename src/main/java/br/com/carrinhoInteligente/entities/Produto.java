@@ -1,5 +1,6 @@
 package br.com.carrinhoInteligente.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public class Produto {
@@ -7,6 +8,8 @@ public class Produto {
     private String codigoBarras;
     private String nome;
     private Double preco;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime criadoEm;
 
     public Produto(int idProduto, String codigoBarras, String nome, Double preco, LocalDateTime criadoEm) {
@@ -16,48 +19,20 @@ public class Produto {
         this.preco = preco;
         this.criadoEm = criadoEm;
     }
+    public Produto() {}
 
-    public Produto() {
+    public int getIdProduto() { return idProduto; }
+    public void setIdProduto(int idProduto) { this.idProduto = idProduto; }
 
-    }
+    public String getCodigoBarras() { return codigoBarras; }
+    public void setCodigoBarras(String codigoBarras) { this.codigoBarras = codigoBarras; }
 
-    public int getIdProduto() {
-        return idProduto;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
-    }
+    public Double getPreco() { return preco; }
+    public void setPreco(Double preco) { this.preco = preco; }
 
-    public String getCodigoBarras() {
-        return codigoBarras;
-    }
-
-    public void setCodigoBarras(String codigoBarras) {
-        this.codigoBarras = codigoBarras;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(Double preco) {
-        this.preco = preco;
-    }
-
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
+    public LocalDateTime getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
 }

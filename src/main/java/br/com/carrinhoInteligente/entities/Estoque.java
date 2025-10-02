@@ -1,12 +1,16 @@
 package br.com.carrinhoInteligente.entities;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public class Estoque {
     private int id;
     private int quantidade;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime criadoEm;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expiraEm;
 
     public Estoque(int id, int quantidade, LocalDateTime criadoEm, LocalDateTime expiraEm) {
@@ -15,10 +19,7 @@ public class Estoque {
         this.criadoEm = criadoEm;
         this.expiraEm = expiraEm;
     }
-
-    public Estoque() {
-
-    }
+    public Estoque() {}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
