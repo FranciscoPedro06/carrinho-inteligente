@@ -1,14 +1,15 @@
 package br.com.carrinhoInteligente.entities;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
-
 
 public class CarrinhoItem {
     private int id;
     private int quantidade;
     private Float precoUnit;
     private Float precoTotal;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime adicionadoEm;
 
     public CarrinhoItem(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
@@ -18,9 +19,7 @@ public class CarrinhoItem {
         this.precoTotal = precoTotal;
         this.adicionadoEm = adicionadoEm;
     }
-    public CarrinhoItem() {
-
-    }
+    public CarrinhoItem() {}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
