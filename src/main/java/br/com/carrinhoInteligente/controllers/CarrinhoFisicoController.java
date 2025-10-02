@@ -1,38 +1,51 @@
+package br.com.carrinhoInteligente.controllers;
+
+import br.com.carrinhoInteligente.entities.CarrinhoFisico;
+import br.com.carrinhoInteligente.facades.CarrinhoFisicoFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/carrinho-fisico")
+@RequestMapping("/api/carrinhos")
 public class CarrinhoFisicoController {
 
-    private final CarrinhoFisicoFacade facade;
+    private final CarrinhoFisicoFacade carrinhoFisicoFacade;
 
-    public CarrinhoFisicoController(CarrinhoFisicoFacade facade) {
-        this.facade = facade;
+    @Autowired
+    public CarrinhoFisicoController(CarrinhoFisicoFacade carrinhoFisicoFacade) {
+        this.carrinhoFisicoFacade = carrinhoFisicoFacade;
     }
 
-    @PostMapping
-    public CarrinhoFisico criar(@RequestBody CarrinhoFisico obj) {
-        return facade.criarCarrinhoFisico(obj);
+    // CREATE
+    @PostMapping("/adicionar")
+    public void salvar(@RequestBody CarrinhoFisico carrinho) {
+        carrinhoFisicoFacade.salvar(carrinho);
     }
 
+    // READ - Listar todos
+    @GetMapping("/")
+    public List<CarrinhoFisico> listarTodos() {
+        return carrinhoFisicoFacade.listarTodos();
+    }
+
+    // READ - Buscar por ID
     @GetMapping("/{id}")
-    public CarrinhoFisico obter(@PathVariable Long id) {
-        return facade.obterCarrinhoFisico(id);
+    public Optional<CarrinhoFisico> buscarPorId(@PathVariable int id) {
+        return carrinhoFisicoFacade.buscarPorId(id);
     }
 
-    @PutMapping("/{id}")
-    public CarrinhoFisico editar(@PathVariable Long id, @RequestBody CarrinhoFisico obj) {
-        return facade.editarCarrinhoFisico(id, obj);
+    // UPDATE
+    @PutMapping("/editar/{id}")
+    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoFisico carrinho) {
+        return carrinhoFisicoFacade.atualizar(id, carrinho);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        facade.deletarCarrinhoFisico(id);
-    }
-
-    @GetMapping
-    public List<CarrinhoFisico> listar() {
-        return facade.listarCarrinhosFisicos();
+    // DELETE
+    @DeleteMapping("/excluir/{id}")
+    public boolean deletar(@PathVariable int id) {
+        return carrinhoFisicoFacade.deletar(id);
     }
 }

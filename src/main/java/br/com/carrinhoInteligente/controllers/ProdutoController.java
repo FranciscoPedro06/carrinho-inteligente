@@ -1,38 +1,46 @@
+package br.com.carrinhoInteligente.controllers;
+
+import br.com.carrinhoInteligente.entities.Produto;
+import br.com.carrinhoInteligente.facades.ProdutoFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/api/produtos")
 public class ProdutoController {
 
-    private final ProdutoFacade facade;
+    private final ProdutoFacade produtoFacade;
 
-    public ProdutoController(ProdutoFacade facade) {
-        this.facade = facade;
+    @Autowired
+    public ProdutoController(ProdutoFacade produtoFacade) {
+        this.produtoFacade = produtoFacade;
     }
 
-    @PostMapping
-    public Produto criar(@RequestBody Produto obj) {
-        return facade.criarProduto(obj);
+    @PostMapping("/adicionar")
+    public void criarProduto(@RequestBody Produto produto) {
+        produtoFacade.criarProduto(produto);
+    }
+
+    @GetMapping("/")
+    public List<Produto> obterTodosProdutos() {
+        return produtoFacade.obterTodosProdutos();
     }
 
     @GetMapping("/{id}")
-    public Produto obter(@PathVariable Long id) {
-        return facade.obterProduto(id);
+    public Optional<Produto> obterProdutoPorId(@PathVariable int id) {
+        return produtoFacade.obterProdutoPorId(id);
     }
 
-    @PutMapping("/{id}")
-    public Produto editar(@PathVariable Long id, @RequestBody Produto obj) {
-        return facade.editarProduto(id, obj);
+    @PutMapping("/editar/{id}")
+    public boolean editarProduto(@PathVariable int id, @RequestBody Produto produto) {
+        return produtoFacade.editarProduto(id, produto);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        facade.deletarProduto(id);
-    }
-
-    @GetMapping
-    public List<Produto> listar() {
-        return facade.listarProdutos();
+    @DeleteMapping("/excluir/{id}")
+    public boolean removerProduto(@PathVariable int id) {
+        return produtoFacade.removerProduto(id);
     }
 }

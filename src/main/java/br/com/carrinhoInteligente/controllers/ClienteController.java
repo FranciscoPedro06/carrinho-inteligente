@@ -1,38 +1,46 @@
+package br.com.carrinhoInteligente.controllers;
+
+import br.com.carrinhoInteligente.entities.Cliente;
+import br.com.carrinhoInteligente.facades.ClienteFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private final ClienteFacade facade;
+    private final ClienteFacade clienteFacade;
 
-    public ClienteController(ClienteFacade facade) {
-        this.facade = facade;
+    @Autowired
+    public ClienteController(ClienteFacade clienteFacade) {
+        this.clienteFacade = clienteFacade;
     }
 
-    @PostMapping
-    public Cliente criar(@RequestBody Cliente obj) {
-        return facade.criarCliente(obj);
+    @PostMapping("/adicionar")
+    public void salvar(@RequestBody Cliente cliente) {
+        clienteFacade.salvar(cliente);
+    }
+
+    @GetMapping("/")
+    public List<Cliente> listarTodos() {
+        return clienteFacade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Cliente obter(@PathVariable Long id) {
-        return facade.obterCliente(id);
+    public Optional<Cliente> buscarPorId(@PathVariable int id) {
+        return clienteFacade.buscarPorId(id);
     }
 
-    @PutMapping("/{id}")
-    public Cliente editar(@PathVariable Long id, @RequestBody Cliente obj) {
-        return facade.editarCliente(id, obj);
+    @PutMapping("/editar/{id}")
+    public boolean atualizar(@PathVariable int id, @RequestBody Cliente cliente) {
+        return clienteFacade.atualizar(id, cliente);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        facade.deletarCliente(id);
-    }
-
-    @GetMapping
-    public List<Cliente> listar() {
-        return facade.listarClientes();
+    @DeleteMapping("/excluir/{id}")
+    public boolean deletar(@PathVariable int id) {
+        return clienteFacade.deletar(id);
     }
 }

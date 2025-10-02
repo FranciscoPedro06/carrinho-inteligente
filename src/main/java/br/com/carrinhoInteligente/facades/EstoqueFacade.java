@@ -1,6 +1,6 @@
 package br.com.carrinhoInteligente.facades;
 
-import br.com.carrinhoInteligente.application.EstoqueApplication;
+import br.com.carrinhoInteligente.applications.EstoqueApplication;
 import br.com.carrinhoInteligente.entities.Estoque;
 
 import java.util.List;
@@ -15,25 +15,25 @@ public class EstoqueFacade {
 
     // CREATE
     public void salvar(Estoque estoque) {
-        application.salvarEstoque(estoque);
+        application.salvar(estoque);
     }
 
     // READ
     public List<Estoque> listarTodos() {
-        return application.listarEstoques();
+        return application.listarTodos();
     }
 
     public Optional<Estoque> buscarPorId(int id) {
-        return application.buscarEstoquePorId(id);
+        return application.buscarPorId(id);
     }
 
     // UPDATE
     public boolean atualizar(int id, Estoque estoque) {
-        return application.atualizarEstoque(id, estoque);
+        return application.atualizar(id, estoque);
     }
 
     // DELETE
     public boolean deletar(int id) {
-        return application.deletarEstoque(id);
+        return application.deletar(id);
     }
 }

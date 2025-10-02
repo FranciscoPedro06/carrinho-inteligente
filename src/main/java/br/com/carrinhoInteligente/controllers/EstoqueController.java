@@ -1,38 +1,46 @@
+package br.com.carrinhoInteligente.controllers;
+
+import br.com.carrinhoInteligente.entities.Estoque;
+import br.com.carrinhoInteligente.facades.EstoqueFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/estoque")
+@RequestMapping("/api/estoques")
 public class EstoqueController {
 
-    private final EstoqueFacade facade;
+    private final EstoqueFacade estoqueFacade;
 
-    public EstoqueController(EstoqueFacade facade) {
-        this.facade = facade;
+    @Autowired
+    public EstoqueController(EstoqueFacade estoqueFacade) {
+        this.estoqueFacade = estoqueFacade;
     }
 
-    @PostMapping
-    public Estoque criar(@RequestBody Estoque obj) {
-        return facade.criarEstoque(obj);
+    @PostMapping("/adicionar")
+    public void salvar(@RequestBody Estoque estoque) {
+        estoqueFacade.salvar(estoque);
+    }
+
+    @GetMapping("/")
+    public List<Estoque> listarTodos() {
+        return estoqueFacade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Estoque obter(@PathVariable Long id) {
-        return facade.obterEstoque(id);
+    public Optional<Estoque> buscarPorId(@PathVariable int id) {
+        return estoqueFacade.buscarPorId(id);
     }
 
-    @PutMapping("/{id}")
-    public Estoque editar(@PathVariable Long id, @RequestBody Estoque obj) {
-        return facade.editarEstoque(id, obj);
+    @PutMapping("/editar/{id}")
+    public boolean atualizar(@PathVariable int id, @RequestBody Estoque estoque) {
+        return estoqueFacade.atualizar(id, estoque);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        facade.deletarEstoque(id);
-    }
-
-    @GetMapping
-    public List<Estoque> listar() {
-        return facade.listarEstoques();
+    @DeleteMapping("/excluir/{id}")
+    public boolean deletar(@PathVariable int id) {
+        return estoqueFacade.deletar(id);
     }
 }

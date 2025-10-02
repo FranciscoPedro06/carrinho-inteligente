@@ -1,38 +1,46 @@
+package br.com.carrinhoInteligente.controllers;
+
+import br.com.carrinhoInteligente.entities.CarrinhoSessao;
+import br.com.carrinhoInteligente.facades.CarrinhoSessaoFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/carrinho-sessao")
+@RequestMapping("/api/carrinho-sessoes")
 public class CarrinhoSessaoController {
 
-    private final CarrinhoSessaoFacade facade;
+    private final CarrinhoSessaoFacade carrinhoSessaoFacade;
 
-    public CarrinhoSessaoController(CarrinhoSessaoFacade facade) {
-        this.facade = facade;
+    @Autowired
+    public CarrinhoSessaoController(CarrinhoSessaoFacade carrinhoSessaoFacade) {
+        this.carrinhoSessaoFacade = carrinhoSessaoFacade;
     }
 
-    @PostMapping
-    public CarrinhoSessao criar(@RequestBody CarrinhoSessao obj) {
-        return facade.criarCarrinhoSessao(obj);
+    @PostMapping("/adicionar")
+    public void salvar(@RequestBody CarrinhoSessao sessao) {
+        carrinhoSessaoFacade.salvar(sessao);
+    }
+
+    @GetMapping("/")
+    public List<CarrinhoSessao> listarTodos() {
+        return carrinhoSessaoFacade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public CarrinhoSessao obter(@PathVariable Long id) {
-        return facade.obterCarrinhoSessao(id);
+    public Optional<CarrinhoSessao> buscarPorId(@PathVariable int id) {
+        return carrinhoSessaoFacade.buscarPorid(id);
     }
 
-    @PutMapping("/{id}")
-    public CarrinhoSessao editar(@PathVariable Long id, @RequestBody CarrinhoSessao obj) {
-        return facade.editarCarrinhoSessao(id, obj);
+    @PutMapping("/editar/{id}")
+    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoSessao sessao) {
+        return carrinhoSessaoFacade.atualizar(id, sessao);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        facade.deletarCarrinhoSessao(id);
-    }
-
-    @GetMapping
-    public List<CarrinhoSessao> listar() {
-        return facade.listarCarrinhosSessao();
+    @DeleteMapping("/excluir/{id}")
+    public boolean deletar(@PathVariable int id) {
+        return carrinhoSessaoFacade.deletar(id);
     }
 }
