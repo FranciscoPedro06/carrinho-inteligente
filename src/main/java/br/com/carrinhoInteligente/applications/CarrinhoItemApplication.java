@@ -1,6 +1,6 @@
 package br.com.carrinhoInteligente.applications;
 
-import br.com.carrinhoInteligente.entities.CarrinhoItem;
+import br.com.carrinhoInteligente.models.CarrinhoItemModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class CarrinhoItemApplication {
 
     private final CarrinhoItemRepository repository;
@@ -17,28 +16,32 @@ public class CarrinhoItemApplication {
         this.repository = repository;
     }
 
-    // CREATE
-    public void salvar(CarrinhoItem item) {
-        repository.salvar(item);
+    public void salvar(CarrinhoItemModel item) {
+        repository.save(item);
     }
 
-    // READ - listar todos
-    public List<CarrinhoItem> listarTodos() {
-        return repository.listarTodos();
+    public List<CarrinhoItemModel> listarTodos() {
+        return repository.findAll();
     }
 
-    // READ - buscar por id
-    public Optional<CarrinhoItem> buscarPorId(int id) {
-        return repository.buscarPorId(id);
+    public Optional<CarrinhoItemModel> buscarPorId(int id) {
+        return repository.findById(id);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, CarrinhoItem novoItem) {
-        return repository.atualizar(id, novoItem);
+    public boolean atualizar(int id, CarrinhoItemModel novoItem) {
+        if (repository.existsById(id)) {
+            novoItem.setId(id);
+            repository.save(novoItem);
+            return true;
+        }
+        return false;
     }
 
-    // DELETE
     public boolean deletar(int id) {
-        return repository.deletar(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

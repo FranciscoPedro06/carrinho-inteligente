@@ -1,45 +1,46 @@
 package br.com.carrinhoInteligente.controllers;
 
-import br.com.carrinhoInteligente.entities.CarrinhoSessao;
 import br.com.carrinhoInteligente.facades.CarrinhoSessaoFacade;
+import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/carrinho-sessoes")
+@RequestMapping("/api/carrinho-sessao")
 public class CarrinhoSessaoController {
 
-    private final CarrinhoSessaoFacade carrinhoSessaoFacade;
+    private final CarrinhoSessaoFacade facade;
 
     @Autowired
-    public CarrinhoSessaoController(CarrinhoSessaoFacade carrinhoSessaoFacade) {
-        this.carrinhoSessaoFacade = carrinhoSessaoFacade;
+    public CarrinhoSessaoController(CarrinhoSessaoFacade facade) {
+        this.facade = facade;
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody CarrinhoSessao sessao) {
-        carrinhoSessaoFacade.salvar(sessao);
+    public void salvar(@RequestBody CarrinhoSessaoModel sessao) {
+        facade.salvar(sessao);
     }
 
     @GetMapping("/")
-    public List<CarrinhoSessao> listarTodos() {
-        return carrinhoSessaoFacade.listarTodos();
+    public List<CarrinhoSessaoModel> listarTodos() {
+        return facade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<CarrinhoSessao> buscarPorId(@PathVariable int id) {
-        return carrinhoSessaoFacade.buscarPorid(id);
+    public Optional<CarrinhoSessaoModel> buscarPorId(@PathVariable int id) {
+        return facade.buscarPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoSessao sessao) {
-        return carrinhoSessaoFacade.atualizar(id, sessao);
+    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoSessaoModel sessao) {
+        return facade.atualizar(id, sessao);
     }
 
     @DeleteMapping("/excluir/{id}")
     public boolean deletar(@PathVariable int id) {
-        return carrinhoSessaoFacade.deletar(id);
+        return facade.deletar(id);
     }
 }

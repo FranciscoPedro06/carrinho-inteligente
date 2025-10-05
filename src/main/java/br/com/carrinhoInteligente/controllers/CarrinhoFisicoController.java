@@ -1,9 +1,10 @@
 package br.com.carrinhoInteligente.controllers;
 
-import br.com.carrinhoInteligente.entities.CarrinhoFisico;
 import br.com.carrinhoInteligente.facades.CarrinhoFisicoFacade;
+import br.com.carrinhoInteligente.models.CarrinhoFisicoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,42 +12,35 @@ import java.util.Optional;
 @RequestMapping("/api/carrinhoFisico")
 public class CarrinhoFisicoController {
 
-    private final CarrinhoFisicoFacade carrinhoFisicoFacade;
+    private final CarrinhoFisicoFacade facade;
 
     @Autowired
-    public CarrinhoFisicoController(CarrinhoFisicoFacade carrinhoFisicoFacade) {
-        this.carrinhoFisicoFacade = carrinhoFisicoFacade;
+    public CarrinhoFisicoController(CarrinhoFisicoFacade facade) {
+        this.facade = facade;
     }
 
-    // CREATE
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody CarrinhoFisico carrinho) {
-        System.out.println("POST recebido: " + carrinho.getCodigoQr() + " | " + carrinho.getStatus() + " | " + carrinho.getCriadoEm());
-        carrinhoFisicoFacade.salvar(carrinho);
+    public void salvar(@RequestBody CarrinhoFisicoModel carrinho) {
+        facade.salvar(carrinho);
     }
 
-
-    // READ - Listar todos
     @GetMapping("/")
-    public List<CarrinhoFisico> listarTodos() {
-        return carrinhoFisicoFacade.listarTodos();
+    public List<CarrinhoFisicoModel> listarTodos() {
+        return facade.listarTodos();
     }
 
-    // READ - Buscar por ID
     @GetMapping("/{id}")
-    public Optional<CarrinhoFisico> buscarPorId(@PathVariable int id) {
-        return carrinhoFisicoFacade.buscarPorId(id);
+    public Optional<CarrinhoFisicoModel> buscarPorId(@PathVariable int id) {
+        return facade.buscarPorId(id);
     }
 
-    // UPDATE
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoFisico carrinho) {
-        return carrinhoFisicoFacade.atualizar(id, carrinho);
+    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoFisicoModel carrinho) {
+        return facade.atualizar(id, carrinho);
     }
 
-    // DELETE
     @DeleteMapping("/excluir/{id}")
     public boolean deletar(@PathVariable int id) {
-        return carrinhoFisicoFacade.deletar(id);
+        return facade.deletar(id);
     }
 }
