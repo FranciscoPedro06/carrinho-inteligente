@@ -1,13 +1,13 @@
 package br.com.carrinhoInteligente.applications;
 
-import br.com.carrinhoInteligente.entities.Pagamento;
+import br.com.carrinhoInteligente.models.PagamentoModel;
 import br.com.carrinhoInteligente.repositories.PagamentoRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class PagamentoApplication {
 
     private final PagamentoRepository repository;
@@ -16,30 +16,32 @@ public class PagamentoApplication {
         this.repository = repository;
     }
 
-    // CREATE
-    public void salvar(Pagamento pagamento) {
-        repository.salvar(pagamento);
+    public void salvar(PagamentoModel pagamento) {
+        repository.save(pagamento);
     }
 
-    // READ - listar todos
-    public List<Pagamento> listarTodos() {
-        return repository.listarTodos();
+    public List<PagamentoModel> listarTodos() {
+        return repository.findAll();
     }
 
-    // READ - buscar por id
-    public Optional<Pagamento> buscarPorId(int id) {
-        return repository.buscarPorId(id);
+    public Optional<PagamentoModel> buscarPorId(int id) {
+        return repository.findById(id);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, Pagamento pagamentoAtualizado) {
-        return repository.atualizar(id, pagamentoAtualizado);
+    public boolean atualizar(int id, PagamentoModel pagamentoAtualizado) {
+        if (repository.existsById(id)) {
+            pagamentoAtualizado.setId(id);
+            repository.save(pagamentoAtualizado);
+            return true;
+        }
+        return false;
     }
 
-    // DELETE
     public boolean deletar(int id) {
-        return repository.deletar(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
-
-
 }

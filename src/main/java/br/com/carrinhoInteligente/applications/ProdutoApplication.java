@@ -1,8 +1,9 @@
 package br.com.carrinhoInteligente.applications;
 
-import br.com.carrinhoInteligente.entities.Produto;
+import br.com.carrinhoInteligente.models.ProdutoModel;
 import br.com.carrinhoInteligente.repositories.ProdutoRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,29 +16,32 @@ public class ProdutoApplication {
         this.repository = repository;
     }
 
-    // CREATE
-    public void salvar(Produto produto) {
-        repository.salvar(produto);
+    public void salvar(ProdutoModel produto) {
+        repository.save(produto);
     }
 
-    // READ - listar todos
-    public List<Produto> listarTodos() {
-        return repository.listarTodos();
+    public List<ProdutoModel> listarTodos() {
+        return repository.findAll();
     }
 
-    // READ - buscar por id
-    public Optional<Produto> buscarPorId(int id) {
-        return repository.buscarPorId(id);
+    public Optional<ProdutoModel> buscarPorId(int id) {
+        return repository.findById(id);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, Produto produtoAtualizado) {
-        return repository.atualizar(id, produtoAtualizado);
+    public boolean atualizar(int id, ProdutoModel produtoAtualizado) {
+        if (repository.existsById(id)) {
+            produtoAtualizado.setIdProduto(id);
+            repository.save(produtoAtualizado);
+            return true;
+        }
+        return false;
     }
 
-    // DELETE
     public boolean deletar(int id) {
-        return repository.deletar(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
-
 }

@@ -1,7 +1,7 @@
 package br.com.carrinhoInteligente.applications;
 
 import br.com.carrinhoInteligente.entities.Estoque;
-import br.com.carrinhoInteligente.repositories.EstoqueRepository;
+import br.com.carrinhoInteligente.repositories.manual.EstoqueRepositoryImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.Optional;
 @Service
 public class EstoqueApplication {
 
-    private final EstoqueRepository repository;
+    private final EstoqueRepositoryImpl repository;
 
-    public EstoqueApplication(EstoqueRepository repository) {
+    public EstoqueApplication(EstoqueRepositoryImpl repository) {
         this.repository = repository;
     }
 

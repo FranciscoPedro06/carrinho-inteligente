@@ -1,6 +1,6 @@
 package br.com.carrinhoInteligente.applications;
 
-import br.com.carrinhoInteligente.entities.CarrinhoSessao;
+import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoSessaoRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,28 +16,32 @@ public class CarrinhoSessaoApplication {
         this.repository = repository;
     }
 
-    // CREATE
-    public void salvar(CarrinhoSessao sessao) {
-        repository.salvar(sessao);
+    public void salvar(CarrinhoSessaoModel sessao) {
+        repository.save(sessao);
     }
 
-    // READ - listar todos
-    public List<CarrinhoSessao> listarTodos() {
-        return repository.listarTodos();
+    public List<CarrinhoSessaoModel> listarTodos() {
+        return repository.findAll();
     }
 
-    // READ - buscar por id
-    public Optional<CarrinhoSessao> buscarPorId(int id) {
-        return repository.buscarPorId(id);
+    public Optional<CarrinhoSessaoModel> buscarPorId(int id) {
+        return repository.findById(id);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, CarrinhoSessao novaSessao) {
-        return repository.atualizar(id, novaSessao);
+    public boolean atualizar(int id, CarrinhoSessaoModel novaSessao) {
+        if (repository.existsById(id)) {
+            novaSessao.setId(id);
+            repository.save(novaSessao);
+            return true;
+        }
+        return false;
     }
 
-    // DELETE
     public boolean deletar(int id) {
-        return repository.deletar(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

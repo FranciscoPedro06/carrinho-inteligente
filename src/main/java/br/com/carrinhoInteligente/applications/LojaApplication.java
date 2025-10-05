@@ -1,6 +1,6 @@
 package br.com.carrinhoInteligente.applications;
 
-import br.com.carrinhoInteligente.entities.Loja;
+import br.com.carrinhoInteligente.models.LojaModel;
 import br.com.carrinhoInteligente.repositories.LojaRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,28 +16,32 @@ public class LojaApplication {
         this.repository = repository;
     }
 
-    // CREATE
-    public void salvar(Loja loja) {
-        repository.salvar(loja);
+    public void salvar(LojaModel loja) {
+        repository.save(loja);
     }
 
-    // READ - listar todas
-    public List<Loja> listarTodas() {
-        return repository.listarTodas();
+    public List<LojaModel> listarTodas() {
+        return repository.findAll();
     }
 
-    // READ - buscar por id
-    public Optional<Loja> buscarPorId(int id) {
-        return repository.buscarPorId(id);
+    public Optional<LojaModel> buscarPorId(int id) {
+        return repository.findById(id);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, Loja lojaAtualizada) {
-        return repository.atualizar(id, lojaAtualizada);
+    public boolean atualizar(int id, LojaModel lojaAtualizada) {
+        if (repository.existsById(id)) {
+            lojaAtualizada.setIdLoja(id);
+            repository.save(lojaAtualizada);
+            return true;
+        }
+        return false;
     }
 
-    // DELETE
     public boolean deletar(int id) {
-        return repository.deletar(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

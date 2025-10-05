@@ -1,8 +1,9 @@
 package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.CarrinhoSessaoApplication;
-import br.com.carrinhoInteligente.entities.CarrinhoSessao;
+import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,26 +15,22 @@ public class CarrinhoSessaoFacade {
         this.application = application;
     }
 
-    // CREATE
-    public void salvar(CarrinhoSessao sessao) {
+    public void salvar(CarrinhoSessaoModel sessao) {
         application.salvar(sessao);
     }
 
-    // READ
-    public List<CarrinhoSessao> listarTodos() {
+    public List<CarrinhoSessaoModel> listarTodos() {
         return application.listarTodos();
     }
 
-    public Optional<CarrinhoSessao> buscarPorid(int id) {
+    public Optional<CarrinhoSessaoModel> buscarPorId(int id) {
         return application.buscarPorId(id);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, CarrinhoSessao sessao) {
+    public boolean atualizar(int id, CarrinhoSessaoModel sessao) {
         return application.atualizar(id, sessao);
     }
 
-    // DELETE
     public boolean deletar(int id) {
         return application.deletar(id);
     }
