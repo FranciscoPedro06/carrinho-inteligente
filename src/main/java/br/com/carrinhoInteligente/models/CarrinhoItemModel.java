@@ -1,25 +1,37 @@
-package br.com.carrinhoInteligente.entities;
+package br.com.carrinhoInteligente.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-public class CarrinhoItem {
+@Entity
+@Table(name = "carrinho_item")
+public class CarrinhoItemModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private int quantidade;
+
+    @Column(name = "preco_unit")
     private Float precoUnit;
+
+    @Column(name = "preco_total")
     private Float precoTotal;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @Column(name = "adicionado_em")
     private LocalDateTime adicionadoEm;
 
-    public CarrinhoItem(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
+    public CarrinhoItemModel() {
+    }
+
+    public CarrinhoItemModel(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
         this.id = id;
         this.quantidade = quantidade;
         this.precoUnit = precoUnit;
         this.precoTotal = precoTotal;
         this.adicionadoEm = adicionadoEm;
     }
-    public CarrinhoItem() {}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
