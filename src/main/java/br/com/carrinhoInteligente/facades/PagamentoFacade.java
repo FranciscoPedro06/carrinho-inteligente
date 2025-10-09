@@ -1,7 +1,7 @@
 package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.PagamentoApplication;
-import br.com.carrinhoInteligente.entities.Pagamento;
+import br.com.carrinhoInteligente.models.PagamentoModel;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
@@ -14,26 +14,22 @@ public class PagamentoFacade {
         this.application = application;
     }
 
-    // CREATE
-    public void salvar(Pagamento pagamento) {
+    public void salvar(PagamentoModel pagamento) {
         application.salvar(pagamento);
     }
 
-    // READ
-    public List<Pagamento> listarTodos() {
+    public List<PagamentoModel> listarTodos() {
         return application.listarTodos();
     }
 
-    public Optional<Pagamento> buscarPorId(int id) {
+    public Optional<PagamentoModel> buscarPorId(int id) {
         return application.buscarPorId(id);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, Pagamento pagamento) {
+    public boolean atualizar(int id, PagamentoModel pagamento) {
         return application.atualizar(id, pagamento);
     }
 
-    // DELETE
     public boolean deletar(int id) {
         return application.deletar(id);
     }

@@ -1,7 +1,7 @@
 package br.com.carrinhoInteligente.applications;
 
-import br.com.carrinhoInteligente.entities.Estoque;
-import br.com.carrinhoInteligente.repositories.manual.EstoqueRepositoryImpl;
+import br.com.carrinhoInteligente.models.EstoqueModel;
+import br.com.carrinhoInteligente.repositories.EstoqueRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,34 +10,43 @@ import java.util.Optional;
 @Service
 public class EstoqueApplication {
 
-    private final EstoqueRepositoryImpl repository;
+    private final EstoqueRepository repository;
 
-    public EstoqueApplication(EstoqueRepositoryImpl repository) {
+    public EstoqueApplication(EstoqueRepository repository) {
         this.repository = repository;
     }
 
     // CREATE
-    public void salvar(Estoque estoque) {
-        repository.salvar(estoque);
+    public void salvar(EstoqueModel estoque) {
+        repository.save(estoque);
     }
 
     // READ - listar todos
-    public List<Estoque> listarTodos() {
-        return repository.listarTodos();
+    public List<EstoqueModel> listarTodos() {
+        return repository.findAll();
     }
 
     // READ - buscar por id
-    public Optional<Estoque> buscarPorId(int id) {
-        return repository.buscarPorId(id);
+    public Optional<EstoqueModel> buscarPorId(int id) {
+        return repository.findById(id);
     }
 
     // UPDATE
-    public boolean atualizar(int id, Estoque estoqueAtualizado) {
-        return repository.atualizar(id, estoqueAtualizado);
+    public boolean atualizar(int id, EstoqueModel novoEstoque) {
+        if (repository.existsById(id)) {
+            novoEstoque.setIdEstoque(id);
+            repository.save(novoEstoque);
+            return true;
+        }
+        return false;
     }
 
     // DELETE
     public boolean deletar(int id) {
-        return repository.deletar(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
