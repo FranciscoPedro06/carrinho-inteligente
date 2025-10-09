@@ -1,45 +1,46 @@
 package br.com.carrinhoInteligente.controllers;
 
-import br.com.carrinhoInteligente.entities.Estoque;
 import br.com.carrinhoInteligente.facades.EstoqueFacade;
+import br.com.carrinhoInteligente.models.EstoqueModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/estoques")
+@RequestMapping("/api/estoque")
 public class EstoqueController {
 
-    private final EstoqueFacade estoqueFacade;
+    private final EstoqueFacade facade;
 
     @Autowired
-    public EstoqueController(EstoqueFacade estoqueFacade) {
-        this.estoqueFacade = estoqueFacade;
+    public EstoqueController(EstoqueFacade facade) {
+        this.facade = facade;
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody Estoque estoque) {
-        estoqueFacade.salvar(estoque);
+    public void salvar(@RequestBody EstoqueModel estoque) {
+        facade.salvar(estoque);
     }
 
     @GetMapping("/")
-    public List<Estoque> listarTodos() {
-        return estoqueFacade.listarTodos();
+    public List<EstoqueModel> listarTodos() {
+        return facade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Estoque> buscarPorId(@PathVariable int id) {
-        return estoqueFacade.buscarPorId(id);
+    public Optional<EstoqueModel> buscarPorId(@PathVariable int id) {
+        return facade.buscarPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody Estoque estoque) {
-        return estoqueFacade.atualizar(id, estoque);
+    public boolean atualizar(@PathVariable int id, @RequestBody EstoqueModel estoque) {
+        return facade.atualizar(id, estoque);
     }
 
     @DeleteMapping("/excluir/{id}")
     public boolean deletar(@PathVariable int id) {
-        return estoqueFacade.deletar(id);
+        return facade.deletar(id);
     }
 }

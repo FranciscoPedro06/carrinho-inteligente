@@ -1,7 +1,7 @@
 package br.com.carrinhoInteligente.applications;
 
-import br.com.carrinhoInteligente.entities.Cliente;
-import br.com.carrinhoInteligente.repositories.manual.ClienteRepositoryImpl;
+import br.com.carrinhoInteligente.models.ClienteModel;
+import br.com.carrinhoInteligente.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,33 +10,43 @@ import java.util.Optional;
 @Service
 public class ClienteApplication {
 
-    private final ClienteRepositoryImpl repository;
+    private final ClienteRepository repository;
 
-    public ClienteApplication(ClienteRepositoryImpl repository) {
+    public ClienteApplication(ClienteRepository repository) {
         this.repository = repository;
     }
 
     // CREATE
-    public void salvar(Cliente cliente) {
-        repository.salvar(cliente);
+    public void salvar(ClienteModel cliente) {
+        repository.save(cliente);
     }
 
-    // READ
-    public List<Cliente> listarTodos() {
-        return repository.listarTodos();
+    // READ - listar todos
+    public List<ClienteModel> listarTodos() {
+        return repository.findAll();
     }
 
-    public Optional<Cliente> buscarPorId(int id) {
-        return repository.buscarPorId(id);
+    // READ - buscar por id
+    public Optional<ClienteModel> buscarPorId(int id) {
+        return repository.findById(id);
     }
 
     // UPDATE
-    public boolean atualizar(int id, Cliente clienteAtualizado) {
-        return repository.atualizar(id, clienteAtualizado);
+    public boolean atualizar(int id, ClienteModel novoCliente) {
+        if (repository.existsById(id)) {
+            novoCliente.setIdCliente(id);
+            repository.save(novoCliente);
+            return true;
+        }
+        return false;
     }
 
     // DELETE
     public boolean deletar(int id) {
-        return repository.deletar(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

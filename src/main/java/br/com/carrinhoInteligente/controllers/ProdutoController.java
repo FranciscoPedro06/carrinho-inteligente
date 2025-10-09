@@ -1,9 +1,10 @@
 package br.com.carrinhoInteligente.controllers;
 
-import br.com.carrinhoInteligente.entities.Produto;
 import br.com.carrinhoInteligente.facades.ProdutoFacade;
+import br.com.carrinhoInteligente.models.ProdutoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,22 +20,22 @@ public class ProdutoController {
     }
 
     @PostMapping("/adicionar")
-    public void criarProduto(@RequestBody Produto produto) {
+    public void criarProduto(@RequestBody ProdutoModel produto) {
         produtoFacade.criarProduto(produto);
     }
 
     @GetMapping("/")
-    public List<Produto> obterTodosProdutos() {
+    public List<ProdutoModel> obterTodosProdutos() {
         return produtoFacade.obterTodosProdutos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Produto> obterProdutoPorId(@PathVariable int id) {
+    public Optional<ProdutoModel> obterProdutoPorId(@PathVariable int id) {
         return produtoFacade.obterProdutoPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean editarProduto(@PathVariable int id, @RequestBody Produto produto) {
+    public boolean editarProduto(@PathVariable int id, @RequestBody ProdutoModel produto) {
         return produtoFacade.editarProduto(id, produto);
     }
 

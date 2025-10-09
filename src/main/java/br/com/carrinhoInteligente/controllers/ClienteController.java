@@ -1,9 +1,10 @@
 package br.com.carrinhoInteligente.controllers;
 
-import br.com.carrinhoInteligente.entities.Cliente;
 import br.com.carrinhoInteligente.facades.ClienteFacade;
+import br.com.carrinhoInteligente.models.ClienteModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,35 +12,35 @@ import java.util.Optional;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private final ClienteFacade clienteFacade;
+    private final ClienteFacade facade;
 
     @Autowired
-    public ClienteController(ClienteFacade clienteFacade) {
-        this.clienteFacade = clienteFacade;
+    public ClienteController(ClienteFacade facade) {
+        this.facade = facade;
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody Cliente cliente) {
-        clienteFacade.salvar(cliente);
+    public void salvar(@RequestBody ClienteModel cliente) {
+        facade.salvar(cliente);
     }
 
     @GetMapping("/")
-    public List<Cliente> listarTodos() {
-        return clienteFacade.listarTodos();
+    public List<ClienteModel> listarTodos() {
+        return facade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Cliente> buscarPorId(@PathVariable int id) {
-        return clienteFacade.buscarPorId(id);
+    public Optional<ClienteModel> buscarPorId(@PathVariable int id) {
+        return facade.buscarPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody Cliente cliente) {
-        return clienteFacade.atualizar(id, cliente);
+    public boolean atualizar(@PathVariable int id, @RequestBody ClienteModel cliente) {
+        return facade.atualizar(id, cliente);
     }
 
     @DeleteMapping("/excluir/{id}")
     public boolean deletar(@PathVariable int id) {
-        return clienteFacade.deletar(id);
+        return facade.deletar(id);
     }
 }
