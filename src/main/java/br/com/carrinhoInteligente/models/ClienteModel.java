@@ -1,6 +1,8 @@
 package br.com.carrinhoInteligente.models;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -14,55 +16,30 @@ public class ClienteModel {
     private String email;
     private String telefone;
 
-    public ClienteModel() {
-    }
+    //  Relação 1:N com CarrinhoSessao
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<CarrinhoSessaoModel> sessoes = new ArrayList<>();
 
-    public ClienteModel(int idCliente, String nome, String email, String telefone) {
-        this.idCliente = idCliente;
+    public ClienteModel() {}
+
+    public ClienteModel(String nome, String email, String telefone) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
+    public int getIdCliente() { return idCliente; }
+    public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public String getNome() {
-        return nome;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getTelefone() { return telefone; }
+    public void setTelefone(String telefone) { this.telefone = telefone; }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    @Override
-    public String toString() {
-        return "ClienteModel{" +
-                "idCliente=" + idCliente +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                '}';
-    }
+    public List<CarrinhoSessaoModel> getSessoes() { return sessoes; }
+    public void setSessoes(List<CarrinhoSessaoModel> sessoes) { this.sessoes = sessoes; }
 }
