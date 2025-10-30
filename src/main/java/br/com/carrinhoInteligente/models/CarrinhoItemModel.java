@@ -22,18 +22,35 @@ public class CarrinhoItemModel {
     @Column(name = "adicionado_em")
     private LocalDateTime adicionadoEm;
 
-    public CarrinhoItemModel() {
-    }
+    @Column(name = "carrinho_sessao_id")
+    private int carrinhoSessaoId;
 
-    public CarrinhoItemModel(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
-        this.id = id;
+    //  Relação N:1 com Sessão
+    @ManyToOne
+    @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id", updatable = false, insertable = false)
+    private CarrinhoSessaoModel carrinhoSessao;
+
+    @Column(name = "id_produto")
+    private int id_produto;
+
+    //  Relação N:1 com Produto
+    @ManyToOne
+    @JoinColumn(name = "id_produto", referencedColumnName = "idProduto", insertable = false, updatable = false)
+    private ProdutoModel produto;
+
+    public CarrinhoItemModel() {}
+
+    public CarrinhoItemModel(int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
         this.quantidade = quantidade;
         this.precoUnit = precoUnit;
         this.precoTotal = precoTotal;
         this.adicionadoEm = adicionadoEm;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
+
     public void setId(int id) { this.id = id; }
 
     public int getQuantidade() { return quantidade; }
@@ -47,4 +64,20 @@ public class CarrinhoItemModel {
 
     public LocalDateTime getAdicionadoEm() { return adicionadoEm; }
     public void setAdicionadoEm(LocalDateTime adicionadoEm) { this.adicionadoEm = adicionadoEm; }
+
+    public CarrinhoSessaoModel getCarrinhoSessao() {
+        return carrinhoSessao;
+    }
+
+    public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) {
+        this.carrinhoSessao = carrinhoSessao;
+    }
+
+    public ProdutoModel getProduto() {
+        return produto;
+    }
+
+    public void setProduto(ProdutoModel produto) {
+        this.produto = produto;
+    }
 }
