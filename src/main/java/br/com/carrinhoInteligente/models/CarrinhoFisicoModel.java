@@ -10,17 +10,31 @@ public class CarrinhoFisicoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "codigo_qr")
     private String codigoQr;
+
     private String status;
+
+    @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
-    // Construtor padrão
-    public CarrinhoFisicoModel() {
-    }
+    //  Relação com Loja (muitos carrinhos pertencem a uma loja)
+    @ManyToOne
+    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja")
+    private LojaModel loja;
 
-    // Construtor com parâmetros
-    public CarrinhoFisicoModel(int id, String codigoQr, String status, LocalDateTime criadoEm) {
-        this.id = id;
+    @Column(name = "carrinho_sessao_id")
+    private int carrinho_sessao_id;
+
+    //  Relação 1:1 com CarrinhoSessao
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id", updatable = false, insertable = false)
+    private CarrinhoSessaoModel carrinhoSessao;
+
+    public CarrinhoFisicoModel() {}
+
+    public CarrinhoFisicoModel(String codigoQr, String status, LocalDateTime criadoEm) {
         this.codigoQr = codigoQr;
         this.status = status;
         this.criadoEm = criadoEm;
@@ -54,16 +68,23 @@ public class CarrinhoFisicoModel {
     public LocalDateTime getCriadoEm() {
         return criadoEm;
     }
-
     public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
     }
 
-    @Override
-    public String toString() {
-        return "Id: " + id + "\n" +
-                "Código QR: " + codigoQr + "\n" +
-                "Status: " + status + "\n" +
-                "Criado em: " + criadoEm;
+    public LojaModel getLoja() {
+        return loja;
+    }
+
+    public void setLoja(LojaModel loja) {
+        this.loja = loja;
+    }
+
+    public CarrinhoSessaoModel getCarrinhoSessao() {
+        return carrinhoSessao;
+    }
+
+    public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) {
+        this.carrinhoSessao = carrinhoSessao;
     }
 }

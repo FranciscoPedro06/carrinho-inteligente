@@ -12,9 +12,7 @@ public class PagamentoModel {
     private int id;
 
     private String metodo;
-
     private Double valor;
-
     private String status;
 
     @Column(name = "criado_em")
@@ -23,8 +21,11 @@ public class PagamentoModel {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-    public PagamentoModel() {
-    }
+    //  Relação 1:1 com CarrinhoSessao
+    @OneToOne(mappedBy = "pagamento")
+    private CarrinhoSessaoModel carrinhoSessao;
+
+    public PagamentoModel() {}
 
     public PagamentoModel(String metodo, Double valor, String status, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
         this.metodo = metodo;
@@ -51,4 +52,7 @@ public class PagamentoModel {
 
     public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
     public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
+
+    public CarrinhoSessaoModel getCarrinhoSessao() { return carrinhoSessao; }
+    public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) { this.carrinhoSessao = carrinhoSessao; }
 }
