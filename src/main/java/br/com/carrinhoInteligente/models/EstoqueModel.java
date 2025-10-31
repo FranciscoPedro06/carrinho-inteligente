@@ -14,7 +14,7 @@ public class EstoqueModel {
     private String localizacao;
 
     @Column(name = "id_produto")
-    private int id_produto;
+    private int idProduto;
 
     // Relação 1:1 com Produto
     @OneToOne

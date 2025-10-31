@@ -23,7 +23,7 @@ public class CarrinhoSessaoModel {
     private LocalDateTime atualizadoEm;
 
     @Column(name = "id_cliente")
-    private int id_cliente;
+    private int idCliente;
 
     // Relação com Cliente (várias sessões pertencem a um cliente)
     @ManyToOne
@@ -31,7 +31,7 @@ public class CarrinhoSessaoModel {
     private ClienteModel cliente;
 
     @Column(name = "pagamento_id")
-    private int pagamento_id;
+    private int idPagamento;
 
     //  Relação 1:1 com Pagamento
     @OneToOne(cascade = CascadeType.ALL)
