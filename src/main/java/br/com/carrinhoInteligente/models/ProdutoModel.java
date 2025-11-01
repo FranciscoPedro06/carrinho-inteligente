@@ -23,7 +23,7 @@ public class ProdutoModel {
     private LocalDateTime criadoEm;
 
     @Column(name = "id_loja")
-    private int idloja;
+    private int idLoja;
 
     //  Relação N:1 com Loja
     @ManyToOne
