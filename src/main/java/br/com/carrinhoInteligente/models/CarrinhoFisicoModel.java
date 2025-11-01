@@ -25,7 +25,7 @@ public class CarrinhoFisicoModel {
     private LojaModel loja;
 
     @Column(name = "carrinho_sessao_id")
-    private int carrinho_sessao_id;
+    private int idCarrinhoSessao;
 
     //  Relação 1:1 com CarrinhoSessao
     @OneToOne(cascade = CascadeType.ALL)

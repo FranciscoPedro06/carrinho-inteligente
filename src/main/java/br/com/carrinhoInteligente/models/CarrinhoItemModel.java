@@ -23,7 +23,7 @@ public class CarrinhoItemModel {
     private LocalDateTime adicionadoEm;
 
     @Column(name = "carrinho_sessao_id")
-    private int carrinhoSessaoId;
+    private int idCarrinhoSessao;
 
     //  Relação N:1 com Sessão
     @ManyToOne
@@ -31,7 +31,7 @@ public class CarrinhoItemModel {
     private CarrinhoSessaoModel carrinhoSessao;
 
     @Column(name = "id_produto")
-    private int id_produto;
+    private int idProduto;
 
     //  Relação N:1 com Produto
     @ManyToOne
