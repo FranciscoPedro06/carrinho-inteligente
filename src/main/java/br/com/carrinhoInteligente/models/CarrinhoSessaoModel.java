@@ -25,20 +25,9 @@ public class CarrinhoSessaoModel {
     @Column(name = "id_cliente")
     private int idCliente;
 
-    // Relação com Cliente (várias sessões pertencem a um cliente)
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "idCliente", insertable = false, updatable = false)
-    private ClienteModel cliente;
-
     @Column(name = "pagamento_id")
     private int idPagamento;
 
-    //  Relação 1:1 com Pagamento
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pagamento_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private PagamentoModel pagamento;
-
-    //  Relação 1:N com Itens do Carrinho
     @OneToMany(mappedBy = "carrinhoSessao", cascade = CascadeType.ALL)
     private List<CarrinhoItemModel> itens = new ArrayList<>();
 
@@ -51,67 +40,28 @@ public class CarrinhoSessaoModel {
         this.atualizadoEm = atualizadoEm;
     }
 
-    // Getters e Setters
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getStatus() {
-        return status;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public int getTotal() { return total; }
+    public void setTotal(int total) { this.total = total; }
 
-    public int getTotal() {
-        return total;
-    }
+    public LocalDateTime getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
+    public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
+    public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
 
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
+    public int getIdCliente() { return idCliente; }
+    public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
+    public int getIdPagamento() { return idPagamento; }
+    public void setIdPagamento(int idPagamento) { this.idPagamento = idPagamento; }
 
-    public LocalDateTime getAtualizadoEm() {
-        return atualizadoEm;
-    }
-
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-        this.atualizadoEm = atualizadoEm;
-    }
-
-    public ClienteModel getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteModel cliente) {
-        this.cliente = cliente;
-    }
-
-    public PagamentoModel getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(PagamentoModel pagamento) {
-        this.pagamento = pagamento; }
-
-    public List<CarrinhoItemModel> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<CarrinhoItemModel> itens) {
-        this.itens = itens;
-    }
+    public List<CarrinhoItemModel> getItens() { return itens; }
+    public void setItens(List<CarrinhoItemModel> itens) { this.itens = itens; }
 }

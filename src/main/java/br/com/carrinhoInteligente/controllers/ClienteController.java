@@ -1,46 +1,47 @@
 package br.com.carrinhoInteligente.controllers;
 
-import br.com.carrinhoInteligente.facades.ClienteFacade;
-import br.com.carrinhoInteligente.models.ClienteModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.carrinhoInteligente.application.ClienteApplication;
+import br.com.carrinhoInteligente.entities.Cliente;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/clientes")
 public class ClienteController {
 
-    private final ClienteFacade facade;
+    private final ClienteApplication application;
 
-    @Autowired
-    public ClienteController(ClienteFacade facade) {
-        this.facade = facade;
+    public ClienteController(ClienteApplication application) {
+        this.application = application;
     }
 
-    @PostMapping("/adicionar")
-    public void salvar(@RequestBody ClienteModel cliente) {
-        facade.salvar(cliente);
+    @PostMapping
+    public ResponseEntity<Cliente> criar(@RequestBody Cliente entity) {
+        return ResponseEntity.ok(application.criar(entity));
     }
 
-    @GetMapping("/")
-    public List<ClienteModel> listarTodos() {
-        return facade.listarTodos();
+    @GetMapping
+    public ResponseEntity<List<Cliente>> listar() {
+        return ResponseEntity.ok(application.listar());
     }
 
     @GetMapping("/{id}")
-    public Optional<ClienteModel> buscarPorId(@PathVariable int id) {
-        return facade.buscarPorId(id);
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable int id) {
+        Cliente cliente = application.buscarPorId(id);
+        return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody ClienteModel cliente) {
-        return facade.atualizar(id, cliente);
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizar(@PathVariable int id, @RequestBody Cliente entity) {
+        Cliente atualizado = application.atualizar(id, entity);
+        return atualizado != null ? ResponseEntity.ok(atualizado) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/excluir/{id}")
-    public boolean deletar(@PathVariable int id) {
-        return facade.deletar(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable int id) {
+        application.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

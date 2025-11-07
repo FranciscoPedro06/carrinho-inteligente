@@ -1,11 +1,14 @@
 package br.com.carrinhoInteligente.applications;
 
+import br.com.carrinhoInteligente.entities.CarrinhoItem;
+import br.com.carrinhoInteligente.factories.CarrinhoItemFactory;
 import br.com.carrinhoInteligente.models.CarrinhoItemModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarrinhoItemApplication {
@@ -16,22 +19,27 @@ public class CarrinhoItemApplication {
         this.repository = repository;
     }
 
-    public void salvar(CarrinhoItemModel item) {
-        repository.save(item);
+    public CarrinhoItem salvar(CarrinhoItem item) {
+        CarrinhoItemModel model = CarrinhoItemFactory.toModel(item);
+        return CarrinhoItemFactory.toEntity(repository.save(model));
     }
 
-    public List<CarrinhoItemModel> listarTodos() {
-        return repository.findAll();
+    public List<CarrinhoItem> listarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(CarrinhoItemFactory::toEntity)
+                .collect(Collectors.toList());
     }
 
-    public Optional<CarrinhoItemModel> buscarPorId(int id) {
-        return repository.findById(id);
+    public Optional<CarrinhoItem> buscarPorId(int id) {
+        return repository.findById(id)
+                .map(CarrinhoItemFactory::toEntity);
     }
 
-    public boolean atualizar(int id, CarrinhoItemModel novoItem) {
+    public boolean atualizar(int id, CarrinhoItem novoItem) {
         if (repository.existsById(id)) {
             novoItem.setId(id);
-            repository.save(novoItem);
+            repository.save(CarrinhoItemFactory.toModel(novoItem));
             return true;
         }
         return false;

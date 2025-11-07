@@ -10,12 +10,13 @@ public class Cliente {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime criadoEm;
 
+    public Cliente() {}
+
     public Cliente(int idCliente, String nome, LocalDateTime criadoEm) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.criadoEm = criadoEm;
     }
-    public Cliente() {}
 
     public int getIdCliente() { return idCliente; }
     public void setIdCliente(int idCliente) { this.idCliente = idCliente; }

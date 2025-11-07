@@ -1,11 +1,13 @@
-package br.com.carrinhoInteligente.applications;
+package br.com.carrinhoInteligente.application;
 
+import br.com.carrinhoInteligente.entities.Cliente;
+import br.com.carrinhoInteligente.factories.ClienteFactory;
 import br.com.carrinhoInteligente.models.ClienteModel;
 import br.com.carrinhoInteligente.repositories.ClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteApplication {
@@ -16,37 +18,34 @@ public class ClienteApplication {
         this.repository = repository;
     }
 
-    // CREATE
-    public void salvar(ClienteModel cliente) {
-        repository.save(cliente);
+    public Cliente criar(Cliente entity) {
+        ClienteModel model = ClienteFactory.toModel(entity);
+        ClienteModel salvo = repository.save(model);
+        return ClienteFactory.toEntity(salvo);
     }
 
-    // READ - listar todos
-    public List<ClienteModel> listarTodos() {
-        return repository.findAll();
+    public List<Cliente> listar() {
+        return repository.findAll()
+                .stream()
+                .map(ClienteFactory::toEntity)
+                .collect(Collectors.toList());
     }
 
-    // READ - buscar por id
-    public Optional<ClienteModel> buscarPorId(int id) {
-        return repository.findById(id);
+    public Cliente buscarPorId(int id) {
+        return repository.findById(id)
+                .map(ClienteFactory::toEntity)
+                .orElse(null);
     }
 
-    // UPDATE
-    public boolean atualizar(int id, ClienteModel novoCliente) {
-        if (repository.existsById(id)) {
-            novoCliente.setIdCliente(id);
-            repository.save(novoCliente);
-            return true;
-        }
-        return false;
+    public Cliente atualizar(int id, Cliente entity) {
+        if (!repository.existsById(id)) return null;
+        ClienteModel model = ClienteFactory.toModel(entity);
+        model.setIdCliente(id);
+        ClienteModel atualizado = repository.save(model);
+        return ClienteFactory.toEntity(atualizado);
     }
 
-    // DELETE
-    public boolean deletar(int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void deletar(int id) {
+        repository.deleteById(id);
     }
 }

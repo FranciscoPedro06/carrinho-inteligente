@@ -1,11 +1,13 @@
-package br.com.carrinhoInteligente.applications;
+package br.com.carrinhoInteligente.application;
 
+import br.com.carrinhoInteligente.entities.CarrinhoSessao;
+import br.com.carrinhoInteligente.factories.CarrinhoSessaoFactory;
 import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoSessaoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CarrinhoSessaoApplication {
@@ -16,32 +18,34 @@ public class CarrinhoSessaoApplication {
         this.repository = repository;
     }
 
-    public void salvar(CarrinhoSessaoModel sessao) {
-        repository.save(sessao);
+    public CarrinhoSessao criar(CarrinhoSessao entity) {
+        CarrinhoSessaoModel model = CarrinhoSessaoFactory.toModel(entity);
+        CarrinhoSessaoModel salvo = repository.save(model);
+        return CarrinhoSessaoFactory.toEntity(salvo);
     }
 
-    public List<CarrinhoSessaoModel> listarTodos() {
-        return repository.findAll();
+    public List<CarrinhoSessao> listar() {
+        return repository.findAll()
+                .stream()
+                .map(CarrinhoSessaoFactory::toEntity)
+                .collect(Collectors.toList());
     }
 
-    public Optional<CarrinhoSessaoModel> buscarPorId(int id) {
-        return repository.findById(id);
+    public CarrinhoSessao buscarPorId(int id) {
+        return repository.findById(id)
+                .map(CarrinhoSessaoFactory::toEntity)
+                .orElse(null);
     }
 
-    public boolean atualizar(int id, CarrinhoSessaoModel novaSessao) {
-        if (repository.existsById(id)) {
-            novaSessao.setId(id);
-            repository.save(novaSessao);
-            return true;
-        }
-        return false;
+    public CarrinhoSessao atualizar(int id, CarrinhoSessao entity) {
+        if (!repository.existsById(id)) return null;
+        CarrinhoSessaoModel model = CarrinhoSessaoFactory.toModel(entity);
+        model.setId(id);
+        CarrinhoSessaoModel atualizado = repository.save(model);
+        return CarrinhoSessaoFactory.toEntity(atualizado);
     }
 
-    public boolean deletar(int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void deletar(int id) {
+        repository.deleteById(id);
     }
 }

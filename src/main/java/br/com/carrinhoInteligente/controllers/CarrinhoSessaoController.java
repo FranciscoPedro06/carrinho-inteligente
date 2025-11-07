@@ -1,46 +1,47 @@
 package br.com.carrinhoInteligente.controllers;
 
-import br.com.carrinhoInteligente.facades.CarrinhoSessaoFacade;
-import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.carrinhoInteligente.application.CarrinhoSessaoApplication;
+import br.com.carrinhoInteligente.entities.CarrinhoSessao;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/carrinho-sessao")
+@RequestMapping("/carrinho-sessao")
 public class CarrinhoSessaoController {
 
-    private final CarrinhoSessaoFacade facade;
+    private final CarrinhoSessaoApplication application;
 
-    @Autowired
-    public CarrinhoSessaoController(CarrinhoSessaoFacade facade) {
-        this.facade = facade;
+    public CarrinhoSessaoController(CarrinhoSessaoApplication application) {
+        this.application = application;
     }
 
-    @PostMapping("/adicionar")
-    public void salvar(@RequestBody CarrinhoSessaoModel sessao) {
-        facade.salvar(sessao);
+    @PostMapping
+    public ResponseEntity<CarrinhoSessao> criar(@RequestBody CarrinhoSessao entity) {
+        return ResponseEntity.ok(application.criar(entity));
     }
 
-    @GetMapping("/")
-    public List<CarrinhoSessaoModel> listarTodos() {
-        return facade.listarTodos();
+    @GetMapping
+    public ResponseEntity<List<CarrinhoSessao>> listar() {
+        return ResponseEntity.ok(application.listar());
     }
 
     @GetMapping("/{id}")
-    public Optional<CarrinhoSessaoModel> buscarPorId(@PathVariable int id) {
-        return facade.buscarPorId(id);
+    public ResponseEntity<CarrinhoSessao> buscarPorId(@PathVariable int id) {
+        CarrinhoSessao sessao = application.buscarPorId(id);
+        return sessao != null ? ResponseEntity.ok(sessao) : ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoSessaoModel sessao) {
-        return facade.atualizar(id, sessao);
+    @PutMapping("/{id}")
+    public ResponseEntity<CarrinhoSessao> atualizar(@PathVariable int id, @RequestBody CarrinhoSessao entity) {
+        CarrinhoSessao atualizado = application.atualizar(id, entity);
+        return atualizado != null ? ResponseEntity.ok(atualizado) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/excluir/{id}")
-    public boolean deletar(@PathVariable int id) {
-        return facade.deletar(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable int id) {
+        application.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
