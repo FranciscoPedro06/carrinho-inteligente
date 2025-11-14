@@ -2,7 +2,6 @@ package br.com.carrinhoInteligente.controllers;
 
 import br.com.carrinhoInteligente.entities.Cliente;
 import br.com.carrinhoInteligente.facades.ClienteFacade;
-import br.com.carrinhoInteligente.models.ClienteModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class ClienteController {
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody ClienteModel cliente) {
+    public void salvar(@RequestBody Cliente cliente) {
         facade.salvar(cliente);
     }
 
@@ -34,7 +33,7 @@ public class ClienteController {
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody ClienteModel cliente) {
+    public boolean atualizar(@PathVariable int id, @RequestBody Cliente cliente) {
         return facade.atualizar(id, cliente);
     }
 

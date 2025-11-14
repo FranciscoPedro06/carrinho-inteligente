@@ -16,7 +16,6 @@ public class EstoqueModel {
     @Column(name = "id_produto")
     private int idProduto;
 
-    // Relação 1:1 com Produto
     @OneToOne
     @JoinColumn(name = "id_produto", referencedColumnName = "idProduto", insertable = false, updatable = false)
     private ProdutoModel produto;
@@ -36,6 +35,9 @@ public class EstoqueModel {
 
     public String getLocalizacao() { return localizacao; }
     public void setLocalizacao(String localizacao) { this.localizacao = localizacao; }
+
+    public int getIdProduto() { return idProduto; }
+    public void setIdProduto(int idProduto) { this.idProduto = idProduto; }
 
     public ProdutoModel getProduto() { return produto; }
     public void setProduto(ProdutoModel produto) { this.produto = produto; }

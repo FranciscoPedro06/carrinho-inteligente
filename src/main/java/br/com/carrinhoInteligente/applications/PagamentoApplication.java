@@ -16,8 +16,11 @@ public class PagamentoApplication {
         this.repository = repository;
     }
 
-    public void salvar(PagamentoModel pagamento) {
-        repository.save(pagamento);
+    public PagamentoModel salvar(PagamentoModel pagamento) {
+        if (pagamento == null) {
+            return null;
+        }
+        return repository.save(pagamento);
     }
 
     public List<PagamentoModel> listarTodos() {
@@ -29,19 +32,34 @@ public class PagamentoApplication {
     }
 
     public boolean atualizar(int id, PagamentoModel pagamentoAtualizado) {
-        if (repository.existsById(id)) {
-            pagamentoAtualizado.setId(id);
-            repository.save(pagamentoAtualizado);
-            return true;
+
+        if (pagamentoAtualizado == null) {
+            return false;
         }
-        return false;
+
+        Optional<PagamentoModel> existente = repository.findById(id);
+
+        if (!existente.isPresent()) {
+            return false;
+        }
+
+        PagamentoModel pagamento = existente.get();
+
+        pagamento.setMetodo(pagamentoAtualizado.getMetodo());
+        pagamento.setValor(pagamentoAtualizado.getValor());
+        pagamento.setStatus(pagamentoAtualizado.getStatus());
+        pagamento.setAtualizadoEm(pagamentoAtualizado.getAtualizadoEm());
+
+        repository.save(pagamento);
+        return true;
     }
 
     public boolean deletar(int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
+        if (!repository.existsById(id)) {
+            return false;
         }
-        return false;
+
+        repository.deleteById(id);
+        return true;
     }
 }
