@@ -1,6 +1,7 @@
 package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.ClienteApplication;
+import br.com.carrinhoInteligente.entities.Cliente;
 import br.com.carrinhoInteligente.models.ClienteModel;
 import org.springframework.stereotype.Component;
 
@@ -15,19 +16,21 @@ public class ClienteFacade {
         this.application = application;
     }
 
-    public void salvar(ClienteModel cliente) {
+    public void salvar(ClienteModel clienteModel) {
+        Cliente cliente = Cliente.fromModel(clienteModel);
         application.salvar(cliente);
     }
 
-    public List<ClienteModel> listarTodos() {
+    public List<Cliente> listarTodos() {
         return application.listarTodos();
     }
 
-    public Optional<ClienteModel> buscarPorId(int id) {
+    public Optional<Cliente> buscarPorId(int id) {
         return application.buscarPorId(id);
     }
 
-    public boolean atualizar(int id, ClienteModel cliente) {
+    public boolean atualizar(int id, ClienteModel clienteModel) {
+        Cliente cliente = Cliente.fromModel(clienteModel);
         return application.atualizar(id, cliente);
     }
 
