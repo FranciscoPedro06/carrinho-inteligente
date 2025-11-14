@@ -25,16 +25,14 @@ public class ProdutoModel {
     @Column(name = "id_loja")
     private int idLoja;
 
-    //  Relação N:1 com Loja
     @ManyToOne
-    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja", insertable = false, updatable = false)
+    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja",
+            insertable = false, updatable = false)
     private LojaModel loja;
 
-    //  Relação 1:1 com Estoque
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
     private EstoqueModel estoque;
 
-    //  Relação 1:N com CarrinhoItem
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<CarrinhoItemModel> itens = new ArrayList<>();
 
@@ -61,6 +59,9 @@ public class ProdutoModel {
 
     public LocalDateTime getCriadoEm() { return criadoEm; }
     public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
+
+    public int getIdLoja() { return idLoja; }
+    public void setIdLoja(int idLoja) { this.idLoja = idLoja; }
 
     public LojaModel getLoja() { return loja; }
     public void setLoja(LojaModel loja) { this.loja = loja; }

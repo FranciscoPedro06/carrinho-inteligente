@@ -1,7 +1,7 @@
 package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.EstoqueApplication;
-import br.com.carrinhoInteligente.models.EstoqueModel;
+import br.com.carrinhoInteligente.entities.Estoque;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,25 +9,26 @@ import java.util.Optional;
 
 @Component
 public class EstoqueFacade {
+
     private final EstoqueApplication application;
 
     public EstoqueFacade(EstoqueApplication application) {
         this.application = application;
     }
 
-    public void salvar(EstoqueModel estoque) {
+    public void salvar(Estoque estoque) {
         application.salvar(estoque);
     }
 
-    public List<EstoqueModel> listarTodos() {
+    public List<Estoque> listarTodos() {
         return application.listarTodos();
     }
 
-    public Optional<EstoqueModel> buscarPorId(int id) {
+    public Optional<Estoque> buscarPorId(int id) {
         return application.buscarPorId(id);
     }
 
-    public boolean atualizar(int id, EstoqueModel estoque) {
+    public boolean atualizar(int id, Estoque estoque) {
         return application.atualizar(id, estoque);
     }
 
