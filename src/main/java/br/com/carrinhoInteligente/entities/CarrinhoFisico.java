@@ -1,5 +1,6 @@
 package br.com.carrinhoInteligente.entities;
 
+import br.com.carrinhoInteligente.models.CarrinhoFisicoModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
@@ -16,6 +17,24 @@ public class CarrinhoFisico {
         this.codigoQr = codigoQr;
         this.status = status;
         this.criadoEm = criadoEm;
+    }
+
+    public static CarrinhoFisico fromModel(CarrinhoFisicoModel model) {
+        return new CarrinhoFisico(
+                model.getId(),
+                model.getCodigoQr(),
+                model.getStatus(),
+                model.getCriadoEm()
+        );
+    }
+
+    public CarrinhoFisicoModel toModel() {
+        CarrinhoFisicoModel model = new CarrinhoFisicoModel();
+        model.setId(this.id);
+        model.setCodigoQr(this.codigoQr);
+        model.setStatus(this.status);
+        model.setCriadoEm(this.criadoEm);
+        return model;
     }
 
     public CarrinhoFisico() { }
