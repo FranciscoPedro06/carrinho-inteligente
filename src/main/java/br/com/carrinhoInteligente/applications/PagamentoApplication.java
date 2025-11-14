@@ -1,5 +1,7 @@
 package br.com.carrinhoInteligente.applications;
 
+import br.com.carrinhoInteligente.entities.CarrinhoItem;
+import br.com.carrinhoInteligente.entities.Pagamento;
 import br.com.carrinhoInteligente.models.PagamentoModel;
 import br.com.carrinhoInteligente.repositories.PagamentoRepository;
 import org.springframework.stereotype.Service;
@@ -16,41 +18,33 @@ public class PagamentoApplication {
         this.repository = repository;
     }
 
-    public PagamentoModel salvar(PagamentoModel pagamento) {
-        if (pagamento == null) {
-            return null;
-        }
-        return repository.save(pagamento);
+    public Pagamento salvar(Pagamento pagamento) {
+        PagamentoModel salvo = repository.save(pagamento.toModel());
+        return Pagamento.fromModel(salvo);
     }
 
-    public List<PagamentoModel> listarTodos() {
-        return repository.findAll();
+    public List<Pagamento> listarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(Pagamento::fromModel)
+                .toList();
     }
 
-    public Optional<PagamentoModel> buscarPorId(int id) {
-        return repository.findById(id);
+    public Optional<Pagamento> buscarPorId(int id) {
+        return repository.findById(id)
+                .map(Pagamento::fromModel);
     }
 
-    public boolean atualizar(int id, PagamentoModel pagamentoAtualizado) {
+    public boolean atualizar(int id, Pagamento pagamento) {
 
-        if (pagamentoAtualizado == null) {
+        if (!repository.existsById(id)) {
             return false;
         }
 
-        Optional<PagamentoModel> existente = repository.findById(id);
+        PagamentoModel model = pagamento.toModel();
+        model.setId(id);
 
-        if (!existente.isPresent()) {
-            return false;
-        }
-
-        PagamentoModel pagamento = existente.get();
-
-        pagamento.setMetodo(pagamentoAtualizado.getMetodo());
-        pagamento.setValor(pagamentoAtualizado.getValor());
-        pagamento.setStatus(pagamentoAtualizado.getStatus());
-        pagamento.setAtualizadoEm(pagamentoAtualizado.getAtualizadoEm());
-
-        repository.save(pagamento);
+        repository.save(model);
         return true;
     }
 
