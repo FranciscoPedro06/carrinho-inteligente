@@ -1,9 +1,9 @@
 package br.com.carrinhoInteligente.controllers;
 
+import br.com.carrinhoInteligente.entities.Pagamento;
 import br.com.carrinhoInteligente.facades.PagamentoFacade;
-import br.com.carrinhoInteligente.models.PagamentoModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,35 +11,34 @@ import java.util.Optional;
 @RequestMapping("/api/pagamentos")
 public class PagamentoController {
 
-    private final PagamentoFacade pagamentoFacade;
+    private final PagamentoFacade facade;
 
-    @Autowired
-    public PagamentoController(PagamentoFacade pagamentoFacade) {
-        this.pagamentoFacade = pagamentoFacade;
+    public PagamentoController(PagamentoFacade facade) {
+        this.facade = facade;
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody PagamentoModel pagamento) {
-        pagamentoFacade.salvar(pagamento);
+    public void salvar(@RequestBody Pagamento pagamento) {
+        facade.salvar(pagamento);
     }
 
     @GetMapping("/")
-    public List<PagamentoModel> listarTodos() {
-        return pagamentoFacade.listarTodos();
+    public List<Pagamento> listarTodos() {
+        return facade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<PagamentoModel> buscarPorId(@PathVariable int id) {
-        return pagamentoFacade.buscarPorId(id);
+    public Optional<Pagamento> buscarPorId(@PathVariable int id) {
+        return facade.buscarPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody PagamentoModel pagamento) {
-        return pagamentoFacade.atualizar(id, pagamento);
+    public boolean atualizar(@PathVariable int id, @RequestBody Pagamento pagamento) {
+        return facade.atualizar(id, pagamento);
     }
 
     @DeleteMapping("/excluir/{id}")
     public boolean deletar(@PathVariable int id) {
-        return pagamentoFacade.deletar(id);
+        return facade.deletar(id);
     }
 }

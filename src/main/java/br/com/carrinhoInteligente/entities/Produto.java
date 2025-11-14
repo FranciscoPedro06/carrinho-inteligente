@@ -1,30 +1,32 @@
 package br.com.carrinhoInteligente.entities;
 
-import br.com.carrinhoInteligente.models.CarrinhoItemModel;
+import br.com.carrinhoInteligente.models.ProdutoModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Produto {
+
     private int idProduto;
     private String codigoBarras;
     private String nome;
     private Double preco;
     private int idLoja;
-    private List<CarrinhoItemModel> itens = new ArrayList<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime criadoEm;
 
-    public Produto(int idProduto, String codigoBarras, String nome, Double preco, LocalDateTime criadoEm) {
+    public Produto() {}
+
+    public Produto(int idProduto, String codigoBarras, String nome, Double preco,
+                   int idLoja, LocalDateTime criadoEm) {
         this.idProduto = idProduto;
         this.codigoBarras = codigoBarras;
         this.nome = nome;
         this.preco = preco;
+        this.idLoja = idLoja;
         this.criadoEm = criadoEm;
     }
-    public Produto() {}
 
     public int getIdProduto() { return idProduto; }
     public void setIdProduto(int idProduto) { this.idProduto = idProduto; }
@@ -38,6 +40,31 @@ public class Produto {
     public Double getPreco() { return preco; }
     public void setPreco(Double preco) { this.preco = preco; }
 
+    public int getIdLoja() { return idLoja; }
+    public void setIdLoja(int idLoja) { this.idLoja = idLoja; }
+
     public LocalDateTime getCriadoEm() { return criadoEm; }
     public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
+
+    public ProdutoModel toModel() {
+        ProdutoModel model = new ProdutoModel();
+        model.setIdProduto(this.idProduto);
+        model.setCodigoBarras(this.codigoBarras);
+        model.setNome(this.nome);
+        model.setPreco(this.preco);
+        model.setIdLoja(this.idLoja);
+        model.setCriadoEm(this.criadoEm);
+        return model;
+    }
+
+    public static Produto fromModel(ProdutoModel model) {
+        return new Produto(
+                model.getIdProduto(),
+                model.getCodigoBarras(),
+                model.getNome(),
+                model.getPreco(),
+                model.getIdLoja(),
+                model.getCriadoEm()
+        );
+    }
 }

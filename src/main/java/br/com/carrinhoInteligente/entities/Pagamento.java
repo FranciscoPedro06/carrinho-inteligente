@@ -1,9 +1,11 @@
 package br.com.carrinhoInteligente.entities;
 
+import br.com.carrinhoInteligente.models.PagamentoModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public class Pagamento {
+
     private int id;
     private String metodo;
     private Double valor;
@@ -15,7 +17,10 @@ public class Pagamento {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime atualizadoEm;
 
-    public Pagamento(int id, String metodo, Double valor, String status, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
+    public Pagamento() {}
+
+    public Pagamento(int id, String metodo, Double valor, String status,
+                     LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
         this.id = id;
         this.metodo = metodo;
         this.valor = valor;
@@ -23,7 +28,6 @@ public class Pagamento {
         this.criadoEm = criadoEm;
         this.atualizadoEm = atualizadoEm;
     }
-    public Pagamento() {}
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -42,4 +46,26 @@ public class Pagamento {
 
     public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
     public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
+
+    public PagamentoModel toModel() {
+        PagamentoModel model = new PagamentoModel();
+        model.setId(this.id);
+        model.setMetodo(this.metodo);
+        model.setValor(this.valor);
+        model.setStatus(this.status);
+        model.setCriadoEm(this.criadoEm);
+        model.setAtualizadoEm(this.atualizadoEm);
+        return model;
+    }
+
+    public static Pagamento fromModel(PagamentoModel model) {
+        return new Pagamento(
+                model.getId(),
+                model.getMetodo(),
+                model.getValor(),
+                model.getStatus(),
+                model.getCriadoEm(),
+                model.getAtualizadoEm()
+        );
+    }
 }

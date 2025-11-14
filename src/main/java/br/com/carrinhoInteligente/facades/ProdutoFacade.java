@@ -1,7 +1,7 @@
 package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.ProdutoApplication;
-import br.com.carrinhoInteligente.models.ProdutoModel;
+import br.com.carrinhoInteligente.entities.Produto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,25 +9,26 @@ import java.util.Optional;
 
 @Component
 public class ProdutoFacade {
+
     private final ProdutoApplication application;
 
     public ProdutoFacade(ProdutoApplication application) {
         this.application = application;
     }
 
-    public void criarProduto(ProdutoModel produto) {
+    public void criarProduto(Produto produto) {
         application.salvar(produto);
     }
 
-    public List<ProdutoModel> obterTodosProdutos() {
+    public List<Produto> obterTodosProdutos() {
         return application.listarTodos();
     }
 
-    public Optional<ProdutoModel> obterProdutoPorId(int id) {
+    public Optional<Produto> obterProdutoPorId(int id) {
         return application.buscarPorId(id);
     }
 
-    public boolean editarProduto(int id, ProdutoModel produto) {
+    public boolean editarProduto(int id, Produto produto) {
         return application.atualizar(id, produto);
     }
 
