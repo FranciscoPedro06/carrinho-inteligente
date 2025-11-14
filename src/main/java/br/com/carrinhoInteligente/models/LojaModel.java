@@ -12,7 +12,6 @@ public class LojaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name = "id_loja")
     private int idLoja;
 
     private String nome;
