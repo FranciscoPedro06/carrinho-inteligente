@@ -1,5 +1,8 @@
 package br.com.carrinhoInteligente.applications;
 
+import br.com.carrinhoInteligente.entities.CarrinhoItem;
+import br.com.carrinhoInteligente.entities.CarrinhoSessao;
+import br.com.carrinhoInteligente.models.CarrinhoItemModel;
 import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoSessaoRepository;
 import org.springframework.stereotype.Service;
@@ -16,25 +19,33 @@ public class CarrinhoSessaoApplication {
         this.repository = repository;
     }
 
-    public void salvar(CarrinhoSessaoModel sessao) {
-        repository.save(sessao);
+    public CarrinhoSessao salvar(CarrinhoSessao sessao) {
+        CarrinhoSessaoModel salvo = repository.save(sessao.toModel());
+        return CarrinhoSessao.fromModel(salvo);
     }
 
-    public List<CarrinhoSessaoModel> listarTodos() {
-        return repository.findAll();
+    public List<CarrinhoSessao> listarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(CarrinhoSessao::fromModel)
+                .toList();
     }
 
-    public Optional<CarrinhoSessaoModel> buscarPorId(int id) {
-        return repository.findById(id);
+    public Optional<CarrinhoSessao> buscarPorId(int id) {
+        return repository.findById(id)
+                .map(CarrinhoSessao::fromModel);
     }
 
-    public boolean atualizar(int id, CarrinhoSessaoModel novaSessao) {
-        if (repository.existsById(id)) {
-            novaSessao.setId(id);
-            repository.save(novaSessao);
-            return true;
+    public boolean atualizar(int id, CarrinhoSessao sessao) {
+        if (!repository.existsById(id)) {
+            return false;
         }
-        return false;
+
+        CarrinhoSessaoModel model = sessao.toModel();
+        model.setId(id);
+
+        repository.save(model);
+        return true;
     }
 
     public boolean deletar(int id) {
