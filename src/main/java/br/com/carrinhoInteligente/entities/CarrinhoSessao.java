@@ -1,5 +1,6 @@
 package br.com.carrinhoInteligente.entities;
 
+import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
@@ -22,6 +23,26 @@ public class CarrinhoSessao {
         this.atualizadoEm = atualizadoEm;
     }
     public CarrinhoSessao() {}
+
+    public CarrinhoSessaoModel toModel() {
+        CarrinhoSessaoModel model = new CarrinhoSessaoModel();
+        model.setId(this.id);
+        model.setStatus(this.status);
+        model.setTotal(this.total);
+        model.setCriadoEm(this.criadoEm);
+        model.setAtualizadoEm(this.atualizadoEm);
+        return model;
+    }
+
+    public static CarrinhoSessao fromModel(CarrinhoSessaoModel model) {
+        return new CarrinhoSessao(
+                model.getId(),
+                model.getStatus(),
+                model.getTotal(),
+                model.getCriadoEm(),
+                model.getAtualizadoEm()
+        );
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
