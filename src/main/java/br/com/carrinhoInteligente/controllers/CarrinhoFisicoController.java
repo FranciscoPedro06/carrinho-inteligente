@@ -1,5 +1,6 @@
 package br.com.carrinhoInteligente.controllers;
 
+import br.com.carrinhoInteligente.entities.CarrinhoFisico;
 import br.com.carrinhoInteligente.facades.CarrinhoFisicoFacade;
 import br.com.carrinhoInteligente.models.CarrinhoFisicoModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +21,22 @@ public class CarrinhoFisicoController {
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody CarrinhoFisicoModel carrinho) {
+    public void salvar(@RequestBody CarrinhoFisico carrinho) {
         facade.salvar(carrinho);
     }
 
     @GetMapping("/")
-    public List<CarrinhoFisicoModel> listarTodos() {
+    public List<CarrinhoFisico> listarTodos() {
         return facade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<CarrinhoFisicoModel> buscarPorId(@PathVariable int id) {
+    public Optional<CarrinhoFisico> buscarPorId(@PathVariable int id) {
         return facade.buscarPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoFisicoModel carrinho) {
+    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoFisico carrinho) {
         return facade.atualizar(id, carrinho);
     }
 

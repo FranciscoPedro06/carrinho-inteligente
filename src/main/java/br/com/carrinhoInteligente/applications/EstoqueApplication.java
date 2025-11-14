@@ -1,11 +1,13 @@
 package br.com.carrinhoInteligente.applications;
 
+import br.com.carrinhoInteligente.entities.Estoque;
 import br.com.carrinhoInteligente.models.EstoqueModel;
 import br.com.carrinhoInteligente.repositories.EstoqueRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EstoqueApplication {
@@ -16,37 +18,47 @@ public class EstoqueApplication {
         this.repository = repository;
     }
 
-    // CREATE
-    public void salvar(EstoqueModel estoque) {
-        repository.save(estoque);
-    }
+    public void salvar(Estoque estoque) {
 
-    // READ - listar todos
-    public List<EstoqueModel> listarTodos() {
-        return repository.findAll();
-    }
-
-    // READ - buscar por id
-    public Optional<EstoqueModel> buscarPorId(int id) {
-        return repository.findById(id);
-    }
-
-    // UPDATE
-    public boolean atualizar(int id, EstoqueModel novoEstoque) {
-        if (repository.existsById(id)) {
-            novoEstoque.setIdEstoque(id);
-            repository.save(novoEstoque);
-            return true;
+        if (estoque == null) {
+            return;
         }
-        return false;
+
+        EstoqueModel model = estoque.toModel();
+        repository.save(model);
     }
 
-    // DELETE
+    public List<Estoque> listarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(Estoque::fromModel)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<Estoque> buscarPorId(int id) {
+        return repository.findById(id)
+                .map(Estoque::fromModel);
+    }
+
+    public boolean atualizar(int id, Estoque estoqueAtualizado) {
+
+        if (!repository.existsById(id)) {
+            return false;
+        }
+
+        EstoqueModel model = estoqueAtualizado.toModel();
+        model.setIdEstoque(id);
+
+        repository.save(model);
+        return true;
+    }
+
     public boolean deletar(int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
+        if (!repository.existsById(id)) {
+            return false;
         }
-        return false;
+
+        repository.deleteById(id);
+        return true;
     }
 }

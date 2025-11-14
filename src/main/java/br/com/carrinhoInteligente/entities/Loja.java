@@ -1,5 +1,6 @@
 package br.com.carrinhoInteligente.entities;
 
+import br.com.carrinhoInteligente.models.LojaModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
@@ -16,6 +17,22 @@ public class Loja {
         this.criadoEm = criadoEm;
     }
     public Loja() {}
+
+    public static Loja fromModel(LojaModel model) {
+        return new Loja(
+                model.getIdLoja(),
+                model.getNome(),
+                model.getCriadoEm()
+        );
+    }
+
+    public LojaModel toModel() {
+        LojaModel model = new LojaModel();
+        model.setIdLoja(this.idLoja);
+        model.setNome(this.nome);
+        model.setCriadoEm(this.criadoEm);
+        return model;
+    }
 
     public int getIdLoja() { return idLoja; }
     public void setIdLoja(int idLoja) { this.idLoja = idLoja; }

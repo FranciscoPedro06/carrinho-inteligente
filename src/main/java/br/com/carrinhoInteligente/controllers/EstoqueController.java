@@ -1,7 +1,7 @@
 package br.com.carrinhoInteligente.controllers;
 
+import br.com.carrinhoInteligente.entities.Estoque;
 import br.com.carrinhoInteligente.facades.EstoqueFacade;
-import br.com.carrinhoInteligente.models.EstoqueModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,22 +20,22 @@ public class EstoqueController {
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody EstoqueModel estoque) {
+    public void salvar(@RequestBody Estoque estoque) {
         facade.salvar(estoque);
     }
 
     @GetMapping("/")
-    public List<EstoqueModel> listarTodos() {
+    public List<Estoque> listarTodos() {
         return facade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<EstoqueModel> buscarPorId(@PathVariable int id) {
+    public Optional<Estoque> buscarPorId(@PathVariable int id) {
         return facade.buscarPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody EstoqueModel estoque) {
+    public boolean atualizar(@PathVariable int id, @RequestBody Estoque estoque) {
         return facade.atualizar(id, estoque);
     }
 

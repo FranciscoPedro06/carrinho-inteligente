@@ -1,5 +1,6 @@
 package br.com.carrinhoInteligente.entities;
 
+import br.com.carrinhoInteligente.models.CarrinhoItemModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
@@ -20,6 +21,26 @@ public class CarrinhoItem {
         this.adicionadoEm = adicionadoEm;
     }
     public CarrinhoItem() {}
+
+    public CarrinhoItemModel toModel() {
+        CarrinhoItemModel model = new CarrinhoItemModel();
+        model.setId(this.id);
+        model.setQuantidade(this.quantidade);
+        model.setPrecoUnit(this.precoUnit);
+        model.setPrecoTotal(this.precoTotal);
+        model.setAdicionadoEm(this.adicionadoEm);
+        return model;
+    }
+
+    public static CarrinhoItem fromModel(CarrinhoItemModel model) {
+        CarrinhoItem item = new CarrinhoItem();
+        item.setId(model.getId());
+        item.setQuantidade(model.getQuantidade());
+        item.setPrecoUnit(model.getPrecoUnit());
+        item.setPrecoTotal(model.getPrecoTotal());
+        item.setAdicionadoEm(model.getAdicionadoEm());
+        return item;
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

@@ -1,5 +1,7 @@
 package br.com.carrinhoInteligente.applications;
 
+import br.com.carrinhoInteligente.entities.CarrinhoItem;
+import br.com.carrinhoInteligente.entities.Pagamento;
 import br.com.carrinhoInteligente.models.PagamentoModel;
 import br.com.carrinhoInteligente.repositories.PagamentoRepository;
 import org.springframework.stereotype.Service;
@@ -16,32 +18,42 @@ public class PagamentoApplication {
         this.repository = repository;
     }
 
-    public void salvar(PagamentoModel pagamento) {
-        repository.save(pagamento);
+    public Pagamento salvar(Pagamento pagamento) {
+        PagamentoModel salvo = repository.save(pagamento.toModel());
+        return Pagamento.fromModel(salvo);
     }
 
-    public List<PagamentoModel> listarTodos() {
-        return repository.findAll();
+    public List<Pagamento> listarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(Pagamento::fromModel)
+                .toList();
     }
 
-    public Optional<PagamentoModel> buscarPorId(int id) {
-        return repository.findById(id);
+    public Optional<Pagamento> buscarPorId(int id) {
+        return repository.findById(id)
+                .map(Pagamento::fromModel);
     }
 
-    public boolean atualizar(int id, PagamentoModel pagamentoAtualizado) {
-        if (repository.existsById(id)) {
-            pagamentoAtualizado.setId(id);
-            repository.save(pagamentoAtualizado);
-            return true;
+    public boolean atualizar(int id, Pagamento pagamento) {
+
+        if (!repository.existsById(id)) {
+            return false;
         }
-        return false;
+
+        PagamentoModel model = pagamento.toModel();
+        model.setId(id);
+
+        repository.save(model);
+        return true;
     }
 
     public boolean deletar(int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
+        if (!repository.existsById(id)) {
+            return false;
         }
-        return false;
+
+        repository.deleteById(id);
+        return true;
     }
 }

@@ -21,13 +21,13 @@ public class PagamentoModel {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-    //  Relação 1:1 com CarrinhoSessao
     @OneToOne(mappedBy = "pagamento")
     private CarrinhoSessaoModel carrinhoSessao;
 
     public PagamentoModel() {}
 
-    public PagamentoModel(String metodo, Double valor, String status, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
+    public PagamentoModel(String metodo, Double valor, String status,
+                          LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
         this.metodo = metodo;
         this.valor = valor;
         this.status = status;
