@@ -1,12 +1,11 @@
 package br.com.carrinhoInteligente.controllers;
 
+import br.com.carrinhoInteligente.entities.Loja;
 import br.com.carrinhoInteligente.facades.LojaFacade;
-import br.com.carrinhoInteligente.models.LojaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/lojas")
@@ -20,22 +19,22 @@ public class LojaController {
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody LojaModel loja) {
-        lojaFacade.salvar(loja);
+    public Loja salvar(@RequestBody Loja loja) {
+        return lojaFacade.salvar(loja);
     }
 
     @GetMapping("/")
-    public List<LojaModel> listarTodos() {
+    public List<Loja> listarTodos() {
         return lojaFacade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<LojaModel> buscarPorId(@PathVariable int id) {
+    public Loja buscarPorId(@PathVariable int id) {
         return lojaFacade.buscarPorId(id);
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody LojaModel loja) {
+    public boolean atualizar(@PathVariable int id, @RequestBody Loja loja) {
         return lojaFacade.atualizar(id, loja);
     }
 

@@ -1,33 +1,33 @@
 package br.com.carrinhoInteligente.facades;
 
 import br.com.carrinhoInteligente.applications.LojaApplication;
-import br.com.carrinhoInteligente.models.LojaModel;
+import br.com.carrinhoInteligente.entities.Loja;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class LojaFacade {
+
     private final LojaApplication application;
 
     public LojaFacade(LojaApplication application) {
         this.application = application;
     }
 
-    public void salvar(LojaModel loja) {
-        application.salvar(loja);
+    public Loja salvar(Loja loja) {
+        return application.salvar(loja);
     }
 
-    public List<LojaModel> listarTodos() {
+    public List<Loja> listarTodos() {
         return application.listarTodas();
     }
 
-    public Optional<LojaModel> buscarPorId(int id) {
+    public Loja buscarPorId(int id) {
         return application.buscarPorId(id);
     }
 
-    public boolean atualizar(int id, LojaModel loja) {
+    public boolean atualizar(int id, Loja loja) {
         return application.atualizar(id, loja);
     }
 
