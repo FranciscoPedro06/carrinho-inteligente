@@ -1,5 +1,8 @@
 package br.com.carrinhoInteligente.applications;
 
+import br.com.carrinhoInteligente.entities.CarrinhoFisico;
+import br.com.carrinhoInteligente.entities.CarrinhoItem;
+import br.com.carrinhoInteligente.models.CarrinhoFisicoModel;
 import br.com.carrinhoInteligente.models.CarrinhoItemModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoItemRepository;
 import org.springframework.stereotype.Service;
@@ -16,32 +19,39 @@ public class CarrinhoItemApplication {
         this.repository = repository;
     }
 
-    public void salvar(CarrinhoItemModel item) {
-        repository.save(item);
+    public CarrinhoItem salvar(CarrinhoItem item) {
+        CarrinhoItemModel salvo = repository.save(item.toModel());
+        return CarrinhoItem.fromModel(salvo);
     }
 
-    public List<CarrinhoItemModel> listarTodos() {
-        return repository.findAll();
+    public List<CarrinhoItem> listarTodos() {
+        return repository.findAll()
+                .stream()
+                .map(CarrinhoItem::fromModel)
+                .toList();
     }
 
-    public Optional<CarrinhoItemModel> buscarPorId(int id) {
-        return repository.findById(id);
+    public Optional<CarrinhoItem> buscarPorId(int id) {
+        return repository.findById(id)
+                .map(CarrinhoItem::fromModel);
     }
 
-    public boolean atualizar(int id, CarrinhoItemModel novoItem) {
-        if (repository.existsById(id)) {
-            novoItem.setId(id);
-            repository.save(novoItem);
-            return true;
+    public boolean atualizar(int id, CarrinhoItem novoCarrinhoItem) {
+        if (!repository.existsById(id)) {
+            return false;
         }
-        return false;
+
+        CarrinhoItemModel model = novoCarrinhoItem.toModel();
+        model.setId(id);
+
+        repository.save(model);
+        return true;
     }
 
     public boolean deletar(int id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return true;
-        }
-        return false;
+        if (!repository.existsById(id)) return false;
+
+        repository.deleteById(id);
+        return true;
     }
 }
