@@ -1,8 +1,8 @@
 package br.com.carrinhoInteligente.controllers;
 
+import br.com.carrinhoInteligente.entities.Cliente;
 import br.com.carrinhoInteligente.facades.ClienteFacade;
 import br.com.carrinhoInteligente.models.ClienteModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +14,6 @@ public class ClienteController {
 
     private final ClienteFacade facade;
 
-    @Autowired
     public ClienteController(ClienteFacade facade) {
         this.facade = facade;
     }
@@ -25,12 +24,12 @@ public class ClienteController {
     }
 
     @GetMapping("/")
-    public List<ClienteModel> listarTodos() {
+    public List<Cliente> listarTodos() {
         return facade.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<ClienteModel> buscarPorId(@PathVariable int id) {
+    public Optional<Cliente> buscarPorId(@PathVariable int id) {
         return facade.buscarPorId(id);
     }
 
