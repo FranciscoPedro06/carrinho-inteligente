@@ -19,14 +19,15 @@ public class CarrinhoFisicoModel {
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
+    @Column(name = "id_loja")
+    private int idLoja;
     //  Relação com Loja (muitos carrinhos pertencem a uma loja)
     @ManyToOne
-    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja")
+    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja", updatable = false, insertable = false)
     private LojaModel loja;
 
     @Column(name = "carrinho_sessao_id")
     private int idCarrinhoSessao;
-
     //  Relação 1:1 com CarrinhoSessao
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id", updatable = false, insertable = false)
