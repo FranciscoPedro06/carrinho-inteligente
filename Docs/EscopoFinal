@@ -1,1 +1,190 @@
+# ESCOPO FINAL
 
+##  INICIAR SESSÃO DO CARRINHO
+
+Criar uma nova sessão quando o carrinho é ativado
+
+Registrar:
+
+idCarrinho
+
+idCliente (via QR Code ou App)
+
+dataHoraInicio
+
+status = "ATIVO"
+
+
+
+##  ADICIONAR ITEM NO CARRINHO
+
+Quando o sensor/câmera lê um produto:
+
+Validar se o produto existe
+
+Validar se existe estoque
+
+Adicionar item na sessão do carrinho
+
+Atualizar quantidade do item (se já existir)
+
+Recalcular subtotal da sessão
+
+
+
+##  REMOVER ITEM DO CARRINHO
+
+Quando o cliente tira um item do carrinho:
+
+Validar se o item existe na sessão
+
+Diminuir quantidade
+
+Se quantidade chegar a 0 → remover item
+
+Recalcular subtotal
+
+
+
+ ##  ATUALIZAR QUANTIDADE DO ITEM
+
+Permitir +1 ou -1
+
+Validar estoque
+
+Recalcular subtotal
+
+
+
+##  VALIDAR ESTOQUE
+
+Antes da venda:
+
+Validar item por item
+
+Bloquear sessão se algum item não tiver estoque suficiente
+
+Retornar mensagem detalhada:
+
+produto
+
+quantidade solicitada
+
+quantidade disponível
+
+
+
+##  FINALIZAR A COMPRA
+
+Quando o cliente pressiona “Finalizar”:
+
+Validar carrinho ativo
+
+Validar estoque de todos itens
+
+Criar registro da venda
+
+Transferir itens → ItemVenda
+
+Descontar estoque
+
+Registrar pagamento (simples por enquanto)
+
+Finalizar sessão do carrinho
+
+Retornar dados da compra
+
+Limpar carrinho
+
+
+
+##  CANCELAR A SESSÃO
+
+Encerrar carrinho
+
+Não descontar estoque
+
+Remover itens temporários
+
+Registrar motivo do cancelamento
+
+
+
+##  SINCRONIZAR ESTADO DO CARRINHO (ESP32 usa muito isso)
+
+O carrinho envia o status atual:
+
+bateria
+
+peso total
+
+conexão
+
+lista de produtos lidos
+
+indicador de segurança
+
+Backend armazena:
+
+Último status
+
+Logs
+
+Erros
+
+
+
+## REGISTRAR LOGS DO CARRINHO
+
+Essencial:
+
+Leitura inválida de código
+
+Produto não reconhecido
+
+Estoque insuficiente
+
+Item removido
+
+Carrinho desconectado
+
+
+
+##  VALIDAR QR CODE DO CLIENTE
+
+Antes de iniciar a compra:
+
+Verificar se o QR Code existe
+
+Se está ativo
+
+Se está vinculado a um cliente
+
+
+
+##  PROCESSAR PAGAMENTO (SIMPLIFICADO)
+
+Calcular total
+
+Registrar método (dinheiro / cartão / saldo app)
+
+Gerar status PENDENTE → CONFIRMADO
+
+
+
+
+##  GERAR RESPOSTA COMPLETA PARA O CARRINHO
+
+Depois da venda:
+
+Itens comprados
+
+Valor total
+
+Data
+
+ID da venda
+
+Status da venda
+
+Lista de estoque atualizados (opcional)
