@@ -35,6 +35,7 @@ public class PagamentoModel {
         this.atualizadoEm = atualizadoEm;
     }
 
+    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -55,4 +56,16 @@ public class PagamentoModel {
 
     public CarrinhoSessaoModel getCarrinhoSessao() { return carrinhoSessao; }
     public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) { this.carrinhoSessao = carrinhoSessao; }
+
+    @Override
+    public String toString() {
+        return "PagamentoModel{" +
+                "id=" + id +
+                ", metodo='" + metodo + '\'' +
+                ", valor=" + valor +
+                ", status='" + status + '\'' +
+                ", criadoEm=" + criadoEm +
+                ", atualizadoEm=" + atualizadoEm +
+                '}';
+    }
 }

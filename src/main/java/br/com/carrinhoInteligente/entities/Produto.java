@@ -2,9 +2,10 @@ package br.com.carrinhoInteligente.entities;
 
 import br.com.carrinhoInteligente.models.ProdutoModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Produto {
 
     private int idProduto;
@@ -28,6 +29,7 @@ public class Produto {
         this.criadoEm = criadoEm;
     }
 
+    // Getters e Setters
     public int getIdProduto() { return idProduto; }
     public void setIdProduto(int idProduto) { this.idProduto = idProduto; }
 
@@ -52,7 +54,6 @@ public class Produto {
         model.setCodigoBarras(this.codigoBarras);
         model.setNome(this.nome);
         model.setPreco(this.preco);
-        model.setIdLoja(this.idLoja);
         model.setCriadoEm(this.criadoEm);
         return model;
     }
@@ -66,5 +67,17 @@ public class Produto {
                 model.getIdLoja(),
                 model.getCriadoEm()
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "idProduto=" + idProduto +
+                ", codigoBarras='" + codigoBarras + '\'' +
+                ", nome='" + nome + '\'' +
+                ", preco=" + preco +
+                ", idLoja=" + idLoja +
+                ", criadoEm=" + criadoEm +
+                '}';
     }
 }

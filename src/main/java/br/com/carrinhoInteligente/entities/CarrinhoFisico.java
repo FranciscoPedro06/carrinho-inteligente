@@ -12,11 +12,16 @@ public class CarrinhoFisico {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime criadoEm;
 
-    public CarrinhoFisico(int id, String codigoQr, String status, LocalDateTime criadoEm) {
+    private int idLoja;
+    private int idCarrinhoSessao;
+
+    public CarrinhoFisico(int id, String codigoQr, String status, LocalDateTime criadoEm, int idLoja, int idCarrinhoSessao) {
         this.id = id;
         this.codigoQr = codigoQr;
         this.status = status;
         this.criadoEm = criadoEm;
+        this.idLoja = idLoja;
+        this.idCarrinhoSessao = idCarrinhoSessao;
     }
 
     public static CarrinhoFisico fromModel(CarrinhoFisicoModel model) {
@@ -24,7 +29,9 @@ public class CarrinhoFisico {
                 model.getId(),
                 model.getCodigoQr(),
                 model.getStatus(),
-                model.getCriadoEm()
+                model.getCriadoEm(),
+                model.getIdLoja(),
+                model.getIdCarrinhoSessao()
         );
     }
 
@@ -39,6 +46,7 @@ public class CarrinhoFisico {
 
     public CarrinhoFisico() { }
 
+    // Getters e Setters
     public int getId() {
         return id;
     }
@@ -69,5 +77,21 @@ public class CarrinhoFisico {
 
     public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
+    }
+
+    public int getIdLoja() {
+        return idLoja;
+    }
+
+    public void setIdLoja(int idLoja) {
+        this.idLoja = idLoja;
+    }
+
+    public int getIdCarrinhoSessao() {
+        return idCarrinhoSessao;
+    }
+
+    public void setIdCarrinhoSessao(int idCarrinhoSessao) {
+        this.idCarrinhoSessao = idCarrinhoSessao;
     }
 }

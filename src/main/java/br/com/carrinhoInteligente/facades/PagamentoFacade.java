@@ -16,8 +16,8 @@ public class PagamentoFacade {
         this.application = application;
     }
 
-    public void salvar(Pagamento pagamento) {
-        application.salvar(pagamento);
+    public Pagamento salvar(Pagamento pagamento) {
+        return application.salvar(pagamento);
     }
 
     public List<Pagamento> listarTodos() {

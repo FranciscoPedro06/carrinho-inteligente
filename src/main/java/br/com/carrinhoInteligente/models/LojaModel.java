@@ -11,7 +11,6 @@ public class LojaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int idLoja;
 
     private String nome;
@@ -34,6 +33,7 @@ public class LojaModel {
         this.criadoEm = criadoEm;
     }
 
+    // Getters e Setters
     public int getIdLoja() { return idLoja; }
     public void setIdLoja(int idLoja) { this.idLoja = idLoja; }
 
@@ -48,4 +48,13 @@ public class LojaModel {
 
     public List<ProdutoModel> getProdutos() { return produtos; }
     public void setProdutos(List<ProdutoModel> produtos) { this.produtos = produtos; }
+
+    @Override
+    public String toString() {
+        return "LojaModel{" +
+                "idLoja=" + idLoja +
+                ", nome='" + nome + '\'' +
+                ", criadoEm=" + criadoEm +
+                '}';
+    }
 }

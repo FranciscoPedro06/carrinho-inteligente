@@ -13,13 +13,20 @@ public class CarrinhoItem {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime adicionadoEm;
 
-    public CarrinhoItem(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm) {
+    private int idCarrinhoSessao;
+    private int idProduto;
+
+    public CarrinhoItem(int id, int quantidade, Float precoUnit, Float precoTotal, LocalDateTime adicionadoEm,
+                        int idCarrinhoSessao, int idProduto) {
         this.id = id;
         this.quantidade = quantidade;
         this.precoUnit = precoUnit;
         this.precoTotal = precoTotal;
         this.adicionadoEm = adicionadoEm;
+        this.idCarrinhoSessao = idCarrinhoSessao;
+        this.idProduto = idProduto;
     }
+
     public CarrinhoItem() {}
 
     public CarrinhoItemModel toModel() {
@@ -33,13 +40,15 @@ public class CarrinhoItem {
     }
 
     public static CarrinhoItem fromModel(CarrinhoItemModel model) {
-        CarrinhoItem item = new CarrinhoItem();
-        item.setId(model.getId());
-        item.setQuantidade(model.getQuantidade());
-        item.setPrecoUnit(model.getPrecoUnit());
-        item.setPrecoTotal(model.getPrecoTotal());
-        item.setAdicionadoEm(model.getAdicionadoEm());
-        return item;
+        return new CarrinhoItem(
+                model.getId(),
+                model.getQuantidade(),
+                model.getPrecoUnit(),
+                model.getPrecoTotal(),
+                model.getAdicionadoEm(),
+                model.getCarrinhoSessao() != null ? model.getCarrinhoSessao().getId() : 0,
+                model.getProduto() != null ? model.getProduto().getIdProduto() : 0
+        );
     }
 
     public int getId() { return id; }
@@ -56,4 +65,10 @@ public class CarrinhoItem {
 
     public LocalDateTime getAdicionadoEm() { return adicionadoEm; }
     public void setAdicionadoEm(LocalDateTime adicionadoEm) { this.adicionadoEm = adicionadoEm; }
+
+    public int getIdCarrinhoSessao() { return idCarrinhoSessao; }
+    public void setIdCarrinhoSessao(int idCarrinhoSessao) { this.idCarrinhoSessao = idCarrinhoSessao; }
+
+    public int getIdProduto() { return idProduto; }
+    public void setIdProduto(int idProduto) { this.idProduto = idProduto; }
 }

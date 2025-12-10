@@ -2,9 +2,11 @@ package br.com.carrinhoInteligente.entities;
 
 import br.com.carrinhoInteligente.models.ClienteModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cliente {
 
     private int idCliente;
@@ -25,6 +27,7 @@ public class Cliente {
         this.criadoEm = criadoEm;
     }
 
+    // Getters e Setters
     public int getIdCliente() { return idCliente; }
     public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
@@ -41,20 +44,37 @@ public class Cliente {
     public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
 
     public ClienteModel toModel(){
-        return new ClienteModel(
+        ClienteModel model = new ClienteModel(
                 this.getNome(),
                 this.getEmail(),
                 this.getTelefone()
         );
+        model.setIdCliente(this.idCliente);
+        // O model ClienteModel precisa ter o campo criadoEm
+        // Se não tiver, pode ser necessário adicionar
+        return model;
     }
 
     public static Cliente fromModel(ClienteModel model) {
+        // Se o ClienteModel tiver campo criadoEm, use model.getCriadoEm()
+        // Se não tiver, mantenha LocalDateTime.now() ou ajuste conforme seu model
         return new Cliente(
                 model.getIdCliente(),
                 model.getNome(),
                 model.getEmail(),
                 model.getTelefone(),
-                LocalDateTime.now()
+                LocalDateTime.now() // ou model.getCriadoEm() se existir
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "idCliente=" + idCliente +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", criadoEm=" + criadoEm +
+                '}';
     }
 }
