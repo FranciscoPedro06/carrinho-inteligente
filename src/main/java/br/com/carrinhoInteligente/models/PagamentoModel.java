@@ -55,4 +55,16 @@ public class PagamentoModel {
 
     public CarrinhoSessaoModel getCarrinhoSessao() { return carrinhoSessao; }
     public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) { this.carrinhoSessao = carrinhoSessao; }
+
+    @Override
+    public String toString() {
+        return "PagamentoModel{" +
+                "id=" + id +
+                ", metodo='" + metodo + '\'' +
+                ", valor=" + valor +
+                ", status='" + status + '\'' +
+                ", criadoEm=" + criadoEm +
+                ", atualizadoEm=" + atualizadoEm +
+                '}';
+    }
 }

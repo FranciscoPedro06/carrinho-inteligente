@@ -2,15 +2,16 @@ package br.com.carrinhoInteligente.entities;
 
 import br.com.carrinhoInteligente.models.EstoqueModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Estoque {
 
     private int idEstoque;
     private int quantidade;
     private String localizacao;
-
     private int idProduto;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -55,6 +56,8 @@ public class Estoque {
         model.setQuantidade(this.quantidade);
         model.setLocalizacao(this.localizacao);
         model.setIdProduto(this.idProduto);
+        model.setCriadoEm(this.criadoEm);
+        model.setExpiraEm(this.expiraEm);
         return model;
     }
 
@@ -63,9 +66,21 @@ public class Estoque {
                 model.getIdEstoque(),
                 model.getQuantidade(),
                 model.getLocalizacao(),
-                model.getIdProduto(),
-                LocalDateTime.now(),
-                null
+                model.getProduto() != null ? model.getProduto().getIdProduto() : 0,
+                model.getCriadoEm(),
+                model.getExpiraEm()
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Estoque{" +
+                "idEstoque=" + idEstoque +
+                ", quantidade=" + quantidade +
+                ", localizacao='" + localizacao + '\'' +
+                ", idProduto=" + idProduto +
+                ", criadoEm=" + criadoEm +
+                ", expiraEm=" + expiraEm +
+                '}';
     }
 }

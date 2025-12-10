@@ -2,8 +2,9 @@ package br.com.carrinhoInteligente.controllers;
 
 import br.com.carrinhoInteligente.entities.CarrinhoFisico;
 import br.com.carrinhoInteligente.facades.CarrinhoFisicoFacade;
-import br.com.carrinhoInteligente.models.CarrinhoFisicoModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,27 +22,53 @@ public class CarrinhoFisicoController {
     }
 
     @PostMapping("/adicionar")
-    public void salvar(@RequestBody CarrinhoFisico carrinho) {
-        facade.salvar(carrinho);
+    public ResponseEntity<?> salvar(@RequestBody CarrinhoFisico carrinho) {
+        try {
+            CarrinhoFisico salvo = facade.salvar(carrinho);
+            return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar carrinho físico");
+        }
     }
 
     @GetMapping("/")
-    public List<CarrinhoFisico> listarTodos() {
-        return facade.listarTodos();
+    public ResponseEntity<List<CarrinhoFisico>> listarTodos() {
+        List<CarrinhoFisico> carrinhos = facade.listarTodos();
+        return ResponseEntity.ok(carrinhos);
     }
 
     @GetMapping("/{id}")
-    public Optional<CarrinhoFisico> buscarPorId(@PathVariable int id) {
-        return facade.buscarPorId(id);
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        Optional<CarrinhoFisico> carrinho = facade.buscarPorId(id);
+        if (carrinho.isPresent()) {
+            return ResponseEntity.ok(carrinho.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Carrinho físico com ID " + id + " não encontrado");
     }
 
     @PutMapping("/editar/{id}")
-    public boolean atualizar(@PathVariable int id, @RequestBody CarrinhoFisico carrinho) {
-        return facade.atualizar(id, carrinho);
+    public ResponseEntity<?> atualizar(@PathVariable int id, @RequestBody CarrinhoFisico carrinho) {
+        try {
+            boolean atualizado = facade.atualizar(id, carrinho);
+            if (atualizado) {
+                return ResponseEntity.ok(true);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Carrinho físico com ID " + id + " não encontrado");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar carrinho físico");
+        }
     }
 
     @DeleteMapping("/excluir/{id}")
-    public boolean deletar(@PathVariable int id) {
-        return facade.deletar(id);
+    public ResponseEntity<?> deletar(@PathVariable int id) {
+        boolean deletado = facade.deletar(id);
+        if (deletado) {
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Carrinho físico com ID " + id + " não encontrado");
     }
 }

@@ -22,24 +22,15 @@ public class CarrinhoSessaoModel {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-    @Column(name = "id_cliente")
-    private int idCliente;
-
-    // Relação com Cliente (várias sessões pertencem a um cliente)
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "idCliente", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cliente")
     private ClienteModel cliente;
 
-    @Column(name = "pagamento_id")
-    private int idPagamento;
-
-    //  Relação 1:1 com Pagamento
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pagamento_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagamento_id")
     private PagamentoModel pagamento;
 
-    //  Relação 1:N com Itens do Carrinho
-    @OneToMany(mappedBy = "carrinhoSessao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carrinhoSessao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CarrinhoItemModel> itens = new ArrayList<>();
 
     public CarrinhoSessaoModel() {}
@@ -51,67 +42,48 @@ public class CarrinhoSessaoModel {
         this.atualizadoEm = atualizadoEm;
     }
 
-    // Getters e Setters
-    public int getId() {
-        return id;
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public int getTotal() { return total; }
+    public void setTotal(int total) { this.total = total; }
+
+    public LocalDateTime getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
+
+    public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
+    public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
+
+    public ClienteModel getCliente() { return cliente; }
+    public void setCliente(ClienteModel cliente) { this.cliente = cliente; }
+
+    public PagamentoModel getPagamento() { return pagamento; }
+    public void setPagamento(PagamentoModel pagamento) { this.pagamento = pagamento; }
+
+    public List<CarrinhoItemModel> getItens() { return itens; }
+    public void setItens(List<CarrinhoItemModel> itens) { this.itens = itens; }
+
+    public Integer getIdCliente() {
+        return cliente != null ? cliente.getIdCliente() : null;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Integer getIdPagamento() {
+        return pagamento != null ? pagamento.getId() : null;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
-
-    public LocalDateTime getAtualizadoEm() {
-        return atualizadoEm;
-    }
-
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-        this.atualizadoEm = atualizadoEm;
-    }
-
-    public ClienteModel getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteModel cliente) {
-        this.cliente = cliente;
-    }
-
-    public PagamentoModel getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(PagamentoModel pagamento) {
-        this.pagamento = pagamento; }
-
-    public List<CarrinhoItemModel> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<CarrinhoItemModel> itens) {
-        this.itens = itens;
+    @Override
+    public String toString() {
+        return "CarrinhoSessaoModel{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", total=" + total +
+                ", criadoEm=" + criadoEm +
+                ", atualizadoEm=" + atualizadoEm +
+                ", cliente=" + (cliente != null ? cliente.getIdCliente() : "null") +
+                ", pagamento=" + (pagamento != null ? pagamento.getId() : "null") +
+                '}';
     }
 }

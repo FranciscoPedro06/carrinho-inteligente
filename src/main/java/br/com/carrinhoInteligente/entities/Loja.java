@@ -2,8 +2,10 @@ package br.com.carrinhoInteligente.entities;
 
 import br.com.carrinhoInteligente.models.LojaModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Loja {
     private int idLoja;
     private String nome;
@@ -16,6 +18,7 @@ public class Loja {
         this.nome = nome;
         this.criadoEm = criadoEm;
     }
+
     public Loja() {}
 
     public static Loja fromModel(LojaModel model) {
@@ -42,4 +45,13 @@ public class Loja {
 
     public LocalDateTime getCriadoEm() { return criadoEm; }
     public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
+
+    @Override
+    public String toString() {
+        return "Loja{" +
+                "idLoja=" + idLoja +
+                ", nome='" + nome + '\'' +
+                ", criadoEm=" + criadoEm +
+                '}';
+    }
 }
