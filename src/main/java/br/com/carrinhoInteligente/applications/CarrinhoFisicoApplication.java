@@ -7,6 +7,7 @@ import br.com.carrinhoInteligente.models.LojaModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoFisicoRepository;
 import br.com.carrinhoInteligente.repositories.CarrinhoSessaoRepository;
 import br.com.carrinhoInteligente.repositories.LojaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,16 +29,24 @@ public class CarrinhoFisicoApplication {
     public CarrinhoFisico salvar(CarrinhoFisico carrinho) {
         CarrinhoFisicoModel model = carrinho.toModel();
 
-        // 1. Vincular loja
-        if (model.getLoja().getIdLoja() != 0) {
-            LojaModel loja = lojaRepository.getReferenceById(model.getId());
-            model.setLoja(loja);
+        // 1. Vincular loja (usando idLoja do carrinho)
+        if (carrinho.getIdLoja() != 0) {
+            try {
+                LojaModel loja = lojaRepository.getReferenceById(carrinho.getIdLoja());
+                model.setLoja(loja);
+            } catch (EntityNotFoundException e) {
+                throw new IllegalArgumentException("Loja com ID " + carrinho.getIdLoja() + " não encontrada");
+            }
         }
 
         // 2. Vincular sessão (se existir)
-        if (model.getId()!= 0) {
-            CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(model.getId());
-            model.setCarrinhoSessao(sessao);
+        if (carrinho.getIdCarrinhoSessao() != 0) {
+            try {
+                CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(carrinho.getIdCarrinhoSessao());
+                model.setCarrinhoSessao(sessao);
+            } catch (EntityNotFoundException e) {
+                throw new IllegalArgumentException("Sessão com ID " + carrinho.getIdCarrinhoSessao() + " não encontrada");
+            }
         }
 
         CarrinhoFisicoModel salvo = repository.save(model);
@@ -61,10 +70,43 @@ public class CarrinhoFisicoApplication {
             return false;
         }
 
-        CarrinhoFisicoModel model = novoCarrinho.toModel();
-        model.setId(id);
+        // Buscar o carrinho existente
+        CarrinhoFisicoModel existente = repository.findById(id).orElseThrow();
 
-        repository.save(model);
+        // Atualizar APENAS os campos que foram fornecidos (não nulos)
+        if (novoCarrinho.getCodigoQr() != null) {
+            existente.setCodigoQr(novoCarrinho.getCodigoQr());
+        }
+
+        if (novoCarrinho.getStatus() != null) {
+            existente.setStatus(novoCarrinho.getStatus());
+        }
+
+        if (novoCarrinho.getCriadoEm() != null) {
+            existente.setCriadoEm(novoCarrinho.getCriadoEm());
+        }
+
+        // Atualizar relacionamento com loja se fornecido (diferente de 0)
+        if (novoCarrinho.getIdLoja() != 0) {
+            try {
+                LojaModel loja = lojaRepository.getReferenceById(novoCarrinho.getIdLoja());
+                existente.setLoja(loja);
+            } catch (EntityNotFoundException e) {
+                throw new IllegalArgumentException("Loja com ID " + novoCarrinho.getIdLoja() + " não encontrada");
+            }
+        }
+
+        // Atualizar relacionamento com sessão se fornecido (diferente de 0)
+        if (novoCarrinho.getIdCarrinhoSessao() != 0) {
+            try {
+                CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(novoCarrinho.getIdCarrinhoSessao());
+                existente.setCarrinhoSessao(sessao);
+            } catch (EntityNotFoundException e) {
+                throw new IllegalArgumentException("Sessão com ID " + novoCarrinho.getIdCarrinhoSessao() + " não encontrada");
+            }
+        }
+
+        repository.save(existente);
         return true;
     }
 

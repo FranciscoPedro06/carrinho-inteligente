@@ -23,17 +23,17 @@ public class CarrinhoSessaoModel {
     private LocalDateTime atualizadoEm;
 
     // ========= CLIENTE =========
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_cliente", nullable = false)
-    private ClienteModel cliente; // Remove idCliente separado
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cliente")
+    private ClienteModel cliente;
 
     // ========= PAGAMENTO =========
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pagamento_id", nullable = false)
-    private PagamentoModel pagamento; // Remove idPagamento separado
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagamento_id")
+    private PagamentoModel pagamento;
 
     // ========= ITENS DO CARRINHO =========
-    @OneToMany(mappedBy = "carrinhoSessao", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carrinhoSessao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CarrinhoItemModel> itens = new ArrayList<>();
 
     // ========= CONSTRUTORES =========
@@ -71,9 +71,25 @@ public class CarrinhoSessaoModel {
     public List<CarrinhoItemModel> getItens() { return itens; }
     public void setItens(List<CarrinhoItemModel> itens) { this.itens = itens; }
 
-    public void setIdPagamento(Integer idPagamento) {
+    // Métodos auxiliares para obter IDs
+    public Integer getIdCliente() {
+        return cliente != null ? cliente.getIdCliente() : null;
     }
 
-    public void setIdCliente(Integer idCliente) {
+    public Integer getIdPagamento() {
+        return pagamento != null ? pagamento.getId() : null;
+    }
+
+    @Override
+    public String toString() {
+        return "CarrinhoSessaoModel{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", total=" + total +
+                ", criadoEm=" + criadoEm +
+                ", atualizadoEm=" + atualizadoEm +
+                ", cliente=" + (cliente != null ? cliente.getIdCliente() : "null") +
+                ", pagamento=" + (pagamento != null ? pagamento.getId() : "null") +
+                '}';
     }
 }

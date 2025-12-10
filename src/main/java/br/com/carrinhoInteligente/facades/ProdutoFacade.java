@@ -16,8 +16,8 @@ public class ProdutoFacade {
         this.application = application;
     }
 
-    public void criarProduto(Produto produto) {
-        application.salvar(produto);
+    public Produto criarProduto(Produto produto) {
+        return application.salvar(produto);
     }
 
     public List<Produto> obterTodosProdutos() {

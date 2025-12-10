@@ -2,8 +2,10 @@ package br.com.carrinhoInteligente.entities;
 
 import br.com.carrinhoInteligente.models.PagamentoModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Pagamento {
 
     private int id;
@@ -29,6 +31,7 @@ public class Pagamento {
         this.atualizadoEm = atualizadoEm;
     }
 
+    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -67,5 +70,17 @@ public class Pagamento {
                 model.getCriadoEm(),
                 model.getAtualizadoEm()
         );
+    }
+
+    @Override
+    public String toString() {
+        return "Pagamento{" +
+                "id=" + id +
+                ", metodo='" + metodo + '\'' +
+                ", valor=" + valor +
+                ", status='" + status + '\'' +
+                ", criadoEm=" + criadoEm +
+                ", atualizadoEm=" + atualizadoEm +
+                '}';
     }
 }

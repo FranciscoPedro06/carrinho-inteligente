@@ -19,18 +19,14 @@ public class CarrinhoFisicoModel {
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
-    @Column(name = "id_loja")
-    private int idLoja;
     //  Relação com Loja (muitos carrinhos pertencem a uma loja)
     @ManyToOne
-    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja", updatable = false, insertable = false)
+    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja")
     private LojaModel loja;
 
-    @Column(name = "carrinho_sessao_id")
-    private int idCarrinhoSessao;
     //  Relação 1:1 com CarrinhoSessao
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id", updatable = false, insertable = false)
+    @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id")
     private CarrinhoSessaoModel carrinhoSessao;
 
     public CarrinhoFisicoModel() {}
@@ -69,6 +65,7 @@ public class CarrinhoFisicoModel {
     public LocalDateTime getCriadoEm() {
         return criadoEm;
     }
+
     public void setCriadoEm(LocalDateTime criadoEm) {
         this.criadoEm = criadoEm;
     }
@@ -87,5 +84,14 @@ public class CarrinhoFisicoModel {
 
     public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) {
         this.carrinhoSessao = carrinhoSessao;
+    }
+
+    // Métodos auxiliares para obter IDs dos relacionamentos
+    public int getIdLoja() {
+        return loja != null ? loja.getIdLoja() : 0;
+    }
+
+    public int getIdCarrinhoSessao() {
+        return carrinhoSessao != null ? carrinhoSessao.getId() : 0;
     }
 }
