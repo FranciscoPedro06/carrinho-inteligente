@@ -26,8 +26,7 @@ public class ProdutoModel {
     private int idLoja;
 
     @ManyToOne
-    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja",
-            insertable = false, updatable = false)
+    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja", insertable = false, updatable = false)
     private LojaModel loja;
 
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)

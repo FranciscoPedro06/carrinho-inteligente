@@ -8,6 +8,8 @@ public class CarrinhoSessao {
     private int id;
     private String status;
     private int total;
+    private Integer idCliente;
+    private Integer idPagamento;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime criadoEm;
@@ -24,6 +26,7 @@ public class CarrinhoSessao {
     }
     public CarrinhoSessao() {}
 
+
     public CarrinhoSessaoModel toModel() {
         CarrinhoSessaoModel model = new CarrinhoSessaoModel();
         model.setId(this.id);
@@ -31,8 +34,11 @@ public class CarrinhoSessao {
         model.setTotal(this.total);
         model.setCriadoEm(this.criadoEm);
         model.setAtualizadoEm(this.atualizadoEm);
+        model.setIdCliente(this.idCliente);
+        model.setIdPagamento(this.idPagamento);
         return model;
     }
+
 
     public static CarrinhoSessao fromModel(CarrinhoSessaoModel model) {
         return new CarrinhoSessao(
@@ -43,6 +49,13 @@ public class CarrinhoSessao {
                 model.getAtualizadoEm()
         );
     }
+
+    public Integer getIdCliente() { return idCliente; }
+    public void setIdCliente(Integer idCliente) { this.idCliente = idCliente; }
+
+    public Integer getIdPagamento() { return idPagamento; }
+    public void setIdPagamento(Integer idPagamento) { this.idPagamento = idPagamento; }
+
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

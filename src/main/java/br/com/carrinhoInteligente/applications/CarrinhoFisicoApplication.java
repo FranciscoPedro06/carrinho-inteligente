@@ -2,8 +2,11 @@ package br.com.carrinhoInteligente.applications;
 
 import br.com.carrinhoInteligente.entities.CarrinhoFisico;
 import br.com.carrinhoInteligente.models.CarrinhoFisicoModel;
+import br.com.carrinhoInteligente.models.CarrinhoSessaoModel;
+import br.com.carrinhoInteligente.models.LojaModel;
 import br.com.carrinhoInteligente.repositories.CarrinhoFisicoRepository;
-import br.com.carrinhoInteligente.repositories.CarrinhoFisicoRepository;
+import br.com.carrinhoInteligente.repositories.CarrinhoSessaoRepository;
+import br.com.carrinhoInteligente.repositories.LojaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +16,31 @@ import java.util.Optional;
 public class CarrinhoFisicoApplication {
 
     private final CarrinhoFisicoRepository repository;
+    private final LojaRepository lojaRepository;
+    private final CarrinhoSessaoRepository sessaoRepository;
 
-    public CarrinhoFisicoApplication(CarrinhoFisicoRepository repository) {
+    public CarrinhoFisicoApplication(CarrinhoFisicoRepository repository, LojaRepository lojaRepository, CarrinhoSessaoRepository sessaoRepository) {
         this.repository = repository;
+        this.lojaRepository = lojaRepository;
+        this.sessaoRepository = sessaoRepository;
     }
 
     public CarrinhoFisico salvar(CarrinhoFisico carrinho) {
-        CarrinhoFisicoModel salvo = repository.save(carrinho.toModel());
+        CarrinhoFisicoModel model = carrinho.toModel();
+
+        // 1. Vincular loja
+        if (model.getLoja().getIdLoja() != 0) {
+            LojaModel loja = lojaRepository.getReferenceById(model.getId());
+            model.setLoja(loja);
+        }
+
+        // 2. Vincular sessão (se existir)
+        if (model.getId()!= 0) {
+            CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(model.getId());
+            model.setCarrinhoSessao(sessao);
+        }
+
+        CarrinhoFisicoModel salvo = repository.save(model);
         return CarrinhoFisico.fromModel(salvo);
     }
 

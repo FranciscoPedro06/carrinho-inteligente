@@ -22,26 +22,21 @@ public class CarrinhoSessaoModel {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-    @Column(name = "id_cliente")
-    private int idCliente;
+    // ========= CLIENTE =========
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private ClienteModel cliente; // Remove idCliente separado
 
-    // Relação com Cliente (várias sessões pertencem a um cliente)
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "idCliente", insertable = false, updatable = false)
-    private ClienteModel cliente;
+    // ========= PAGAMENTO =========
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagamento_id", nullable = false)
+    private PagamentoModel pagamento; // Remove idPagamento separado
 
-    @Column(name = "pagamento_id")
-    private int idPagamento;
-
-    //  Relação 1:1 com Pagamento
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pagamento_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private PagamentoModel pagamento;
-
-    //  Relação 1:N com Itens do Carrinho
+    // ========= ITENS DO CARRINHO =========
     @OneToMany(mappedBy = "carrinhoSessao", cascade = CascadeType.ALL)
     private List<CarrinhoItemModel> itens = new ArrayList<>();
 
+    // ========= CONSTRUTORES =========
     public CarrinhoSessaoModel() {}
 
     public CarrinhoSessaoModel(String status, int total, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
@@ -51,67 +46,34 @@ public class CarrinhoSessaoModel {
         this.atualizadoEm = atualizadoEm;
     }
 
-    // Getters e Setters
-    public int getId() {
-        return id;
+    // ========= GETTERS E SETTERS =========
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public int getTotal() { return total; }
+    public void setTotal(int total) { this.total = total; }
+
+    public LocalDateTime getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
+
+    public LocalDateTime getAtualizadoEm() { return atualizadoEm; }
+    public void setAtualizadoEm(LocalDateTime atualizadoEm) { this.atualizadoEm = atualizadoEm; }
+
+    public ClienteModel getCliente() { return cliente; }
+    public void setCliente(ClienteModel cliente) { this.cliente = cliente; }
+
+    public PagamentoModel getPagamento() { return pagamento; }
+    public void setPagamento(PagamentoModel pagamento) { this.pagamento = pagamento; }
+
+    public List<CarrinhoItemModel> getItens() { return itens; }
+    public void setItens(List<CarrinhoItemModel> itens) { this.itens = itens; }
+
+    public void setIdPagamento(Integer idPagamento) {
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
-
-    public LocalDateTime getAtualizadoEm() {
-        return atualizadoEm;
-    }
-
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-        this.atualizadoEm = atualizadoEm;
-    }
-
-    public ClienteModel getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteModel cliente) {
-        this.cliente = cliente;
-    }
-
-    public PagamentoModel getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(PagamentoModel pagamento) {
-        this.pagamento = pagamento; }
-
-    public List<CarrinhoItemModel> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<CarrinhoItemModel> itens) {
-        this.itens = itens;
+    public void setIdCliente(Integer idCliente) {
     }
 }
