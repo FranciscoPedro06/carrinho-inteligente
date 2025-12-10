@@ -32,7 +32,6 @@ public class Estoque {
         this.expiraEm = expiraEm;
     }
 
-    // Getters e Setters
     public int getIdEstoque() { return idEstoque; }
     public void setIdEstoque(int idEstoque) { this.idEstoque = idEstoque; }
 
@@ -57,8 +56,8 @@ public class Estoque {
         model.setQuantidade(this.quantidade);
         model.setLocalizacao(this.localizacao);
         model.setIdProduto(this.idProduto);
-        model.setCriadoEm(this.criadoEm); // Adicione este setter no Model
-        model.setExpiraEm(this.expiraEm); // Adicione este setter no Model
+        model.setCriadoEm(this.criadoEm);
+        model.setExpiraEm(this.expiraEm);
         return model;
     }
 
@@ -68,8 +67,8 @@ public class Estoque {
                 model.getQuantidade(),
                 model.getLocalizacao(),
                 model.getProduto() != null ? model.getProduto().getIdProduto() : 0,
-                model.getCriadoEm(), // Adicione este getter no Model
-                model.getExpiraEm()  // Adicione este getter no Model
+                model.getCriadoEm(),
+                model.getExpiraEm()
         );
     }
 

@@ -27,7 +27,6 @@ public class Cliente {
         this.criadoEm = criadoEm;
     }
 
-    // Getters e Setters
     public int getIdCliente() { return idCliente; }
     public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
@@ -50,14 +49,10 @@ public class Cliente {
                 this.getTelefone()
         );
         model.setIdCliente(this.idCliente);
-        // O model ClienteModel precisa ter o campo criadoEm
-        // Se não tiver, pode ser necessário adicionar
         return model;
     }
 
     public static Cliente fromModel(ClienteModel model) {
-        // Se o ClienteModel tiver campo criadoEm, use model.getCriadoEm()
-        // Se não tiver, mantenha LocalDateTime.now() ou ajuste conforme seu model
         return new Cliente(
                 model.getIdCliente(),
                 model.getNome(),

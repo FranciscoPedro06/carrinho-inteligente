@@ -28,14 +28,12 @@ public class LojaApplication {
             throw new IllegalArgumentException("Loja não pode ser nula");
         }
 
-        // Validação básica
         if (loja.getNome() == null || loja.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome da loja é obrigatório");
         }
 
         LojaModel model = loja.toModel();
 
-        // Definir data de criação se não informada
         if (model.getCriadoEm() == null) {
             model.setCriadoEm(LocalDateTime.now());
         }
@@ -67,10 +65,8 @@ public class LojaApplication {
             return false;
         }
 
-        // Buscar a loja existente
         LojaModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos (não nulos)
         if (lojaAtualizada.getNome() != null && !lojaAtualizada.getNome().isEmpty()) {
             existente.setNome(lojaAtualizada.getNome());
         }

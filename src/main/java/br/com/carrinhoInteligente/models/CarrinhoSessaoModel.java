@@ -22,21 +22,17 @@ public class CarrinhoSessaoModel {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-    // ========= CLIENTE =========
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente")
     private ClienteModel cliente;
 
-    // ========= PAGAMENTO =========
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pagamento_id")
     private PagamentoModel pagamento;
 
-    // ========= ITENS DO CARRINHO =========
     @OneToMany(mappedBy = "carrinhoSessao", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CarrinhoItemModel> itens = new ArrayList<>();
 
-    // ========= CONSTRUTORES =========
     public CarrinhoSessaoModel() {}
 
     public CarrinhoSessaoModel(String status, int total, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
@@ -46,7 +42,6 @@ public class CarrinhoSessaoModel {
         this.atualizadoEm = atualizadoEm;
     }
 
-    // ========= GETTERS E SETTERS =========
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -71,7 +66,6 @@ public class CarrinhoSessaoModel {
     public List<CarrinhoItemModel> getItens() { return itens; }
     public void setItens(List<CarrinhoItemModel> itens) { this.itens = itens; }
 
-    // Métodos auxiliares para obter IDs
     public Integer getIdCliente() {
         return cliente != null ? cliente.getIdCliente() : null;
     }

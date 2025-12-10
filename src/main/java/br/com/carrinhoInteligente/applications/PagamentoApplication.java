@@ -79,10 +79,8 @@ public class PagamentoApplication {
             return false;
         }
 
-        // Buscar o pagamento existente
         PagamentoModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos (não nulos)
         if (pagamentoAtualizado.getMetodo() != null && !pagamentoAtualizado.getMetodo().isEmpty()) {
             existente.setMetodo(pagamentoAtualizado.getMetodo());
         }
@@ -99,7 +97,6 @@ public class PagamentoApplication {
             existente.setCriadoEm(pagamentoAtualizado.getCriadoEm());
         }
 
-        // Sempre atualiza o campo atualizadoEm
         existente.setAtualizadoEm(LocalDateTime.now());
 
         repository.save(existente);

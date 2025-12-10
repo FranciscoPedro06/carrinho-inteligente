@@ -29,7 +29,6 @@ public class CarrinhoItemApplication {
     public CarrinhoItem salvar(CarrinhoItem item) {
         CarrinhoItemModel model = item.toModel();
 
-        // Vincular carrinho sessão (se existir)
         if (item.getIdCarrinhoSessao() != 0) {
             try {
                 CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(item.getIdCarrinhoSessao());
@@ -39,7 +38,6 @@ public class CarrinhoItemApplication {
             }
         }
 
-        // Vincular produto (se existir)
         if (item.getIdProduto() != 0) {
             try {
                 ProdutoModel produto = produtoRepository.getReferenceById(item.getIdProduto());
@@ -49,7 +47,6 @@ public class CarrinhoItemApplication {
             }
         }
 
-        // Calcular preço total se não informado
         if (model.getPrecoTotal() == null && model.getPrecoUnit() != null) {
             model.setPrecoTotal(model.getPrecoUnit() * model.getQuantidade());
         }
@@ -75,11 +72,9 @@ public class CarrinhoItemApplication {
             return false;
         }
 
-        // Buscar o item existente
         CarrinhoItemModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos (não nulos)
-        if (novoItem.getQuantidade() != 0) {  // int não pode ser null, então verificamos se é diferente de 0
+        if (novoItem.getQuantidade() != 0) {
             existente.setQuantidade(novoItem.getQuantidade());
         }
 
@@ -95,13 +90,11 @@ public class CarrinhoItemApplication {
             existente.setAdicionadoEm(novoItem.getAdicionadoEm());
         }
 
-        // Recalcular preço total se quantidade ou preço unitário mudou
         if (existente.getPrecoUnit() != null &&
                 (novoItem.getQuantidade() != 0 || novoItem.getPrecoUnit() != null)) {
             existente.setPrecoTotal(existente.getPrecoUnit() * existente.getQuantidade());
         }
 
-        // Atualizar relacionamento com sessão se fornecido
         if (novoItem.getIdCarrinhoSessao() != 0) {
             try {
                 CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(novoItem.getIdCarrinhoSessao());
@@ -111,7 +104,6 @@ public class CarrinhoItemApplication {
             }
         }
 
-        // Atualizar relacionamento com produto se fornecido
         if (novoItem.getIdProduto() != 0) {
             try {
                 ProdutoModel produto = produtoRepository.getReferenceById(novoItem.getIdProduto());

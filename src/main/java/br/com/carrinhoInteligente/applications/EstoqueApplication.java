@@ -33,19 +33,16 @@ public class EstoqueApplication {
             throw new IllegalArgumentException("Estoque não pode ser nulo");
         }
 
-        // Validação básica
         if (estoque.getQuantidade() < 0) {
             throw new IllegalArgumentException("Quantidade não pode ser negativa");
         }
 
         EstoqueModel model = estoque.toModel();
 
-        // Definir data de criação se não informada
         if (model.getCriadoEm() == null) {
             model.setCriadoEm(LocalDateTime.now());
         }
 
-        // Vincular Produto (se fornecido)
         if (estoque.getIdProduto() != 0) {
             try {
                 ProdutoModel produto = produtoRepository.getReferenceById(estoque.getIdProduto());
@@ -86,10 +83,8 @@ public class EstoqueApplication {
             return false;
         }
 
-        // Buscar o estoque existente
         EstoqueModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos
         if (estoqueAtualizado.getQuantidade() != 0) {
             existente.setQuantidade(estoqueAtualizado.getQuantidade());
         }
@@ -106,7 +101,6 @@ public class EstoqueApplication {
             existente.setExpiraEm(estoqueAtualizado.getExpiraEm());
         }
 
-        // Atualizar relacionamento com Produto se fornecido
         if (estoqueAtualizado.getIdProduto() != 0) {
             try {
                 ProdutoModel produto = produtoRepository.getReferenceById(estoqueAtualizado.getIdProduto());

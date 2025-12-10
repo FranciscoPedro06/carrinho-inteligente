@@ -46,7 +46,6 @@ public class CarrinhoFisico {
 
     public CarrinhoFisico() { }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }

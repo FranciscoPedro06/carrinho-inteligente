@@ -20,7 +20,6 @@ public class ClienteModel {
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
-    //  Relação 1:N com CarrinhoSessao
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<CarrinhoSessaoModel> sessoes = new ArrayList<>();
 
@@ -33,7 +32,6 @@ public class ClienteModel {
         this.criadoEm = LocalDateTime.now();
     }
 
-    // Getters e Setters
     public int getIdCliente() { return idCliente; }
     public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 

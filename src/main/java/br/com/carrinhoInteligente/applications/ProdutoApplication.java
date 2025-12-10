@@ -33,7 +33,6 @@ public class ProdutoApplication {
             throw new IllegalArgumentException("Produto não pode ser nulo");
         }
 
-        // Validação básica
         if (produto.getNome() == null || produto.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome do produto é obrigatório");
         }
@@ -44,12 +43,10 @@ public class ProdutoApplication {
 
         ProdutoModel model = produto.toModel();
 
-        // Definir data de criação se não informada
         if (model.getCriadoEm() == null) {
             model.setCriadoEm(LocalDateTime.now());
         }
 
-        // Vincular a loja (se fornecido)
         if (produto.getIdLoja() != 0) {
             try {
                 LojaModel loja = lojaRepository.getReferenceById(produto.getIdLoja());
@@ -90,10 +87,8 @@ public class ProdutoApplication {
             return false;
         }
 
-        // Buscar o produto existente
         ProdutoModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos
         if (produtoAtualizado.getCodigoBarras() != null && !produtoAtualizado.getCodigoBarras().isEmpty()) {
             existente.setCodigoBarras(produtoAtualizado.getCodigoBarras());
         }
@@ -110,7 +105,6 @@ public class ProdutoApplication {
             existente.setCriadoEm(produtoAtualizado.getCriadoEm());
         }
 
-        // Atualizar relacionamento com Loja se fornecido
         if (produtoAtualizado.getIdLoja() != 0) {
             try {
                 LojaModel loja = lojaRepository.getReferenceById(produtoAtualizado.getIdLoja());
