@@ -38,7 +38,6 @@ public class CarrinhoSessaoApplication {
 
         CarrinhoSessaoModel model = sessao.toModel();
 
-        // 🔥 VALORES PADRÃO PARA CAMPOS OBRIGATÓRIOS
         if (model.getCriadoEm() == null) {
             model.setCriadoEm(LocalDateTime.now());
         }
@@ -51,7 +50,6 @@ public class CarrinhoSessaoApplication {
             model.setStatus("ABERTO");
         }
 
-        // 🔗 Vincular Cliente (se fornecido) - OPCIONAL
         if (sessao.getIdCliente() != null && sessao.getIdCliente() != 0) {
             logger.info("Tentando vincular cliente com ID: {}", sessao.getIdCliente());
             try {
@@ -64,10 +62,9 @@ public class CarrinhoSessaoApplication {
             }
         } else {
             logger.info("Nenhum cliente fornecido. Cliente será null.");
-            model.setCliente(null); // Garante que seja null
+            model.setCliente(null);
         }
 
-        // 🔗 Vincular Pagamento (se fornecido) - OPCIONAL
         if (sessao.getIdPagamento() != null && sessao.getIdPagamento() != 0) {
             logger.info("Tentando vincular pagamento com ID: {}", sessao.getIdPagamento());
             try {
@@ -120,10 +117,8 @@ public class CarrinhoSessaoApplication {
             return false;
         }
 
-        // Buscar a sessão existente
         CarrinhoSessaoModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos (não nulos)
         if (novaSessao.getStatus() != null && !novaSessao.getStatus().isEmpty()) {
             existente.setStatus(novaSessao.getStatus());
         }
@@ -136,13 +131,10 @@ public class CarrinhoSessaoApplication {
             existente.setCriadoEm(novaSessao.getCriadoEm());
         }
 
-        // Sempre atualiza o campo atualizadoEm
         existente.setAtualizadoEm(LocalDateTime.now());
 
-        // 🔗 Atualizar Cliente (se fornecido)
         if (novaSessao.getIdCliente() != null) {
             if (novaSessao.getIdCliente() == 0) {
-                // Se idCliente = 0, remove o cliente
                 existente.setCliente(null);
                 logger.info("Cliente removido da sessão");
             } else {
@@ -156,10 +148,8 @@ public class CarrinhoSessaoApplication {
             }
         }
 
-        // 🔗 Atualizar Pagamento (se fornecido)
         if (novaSessao.getIdPagamento() != null) {
             if (novaSessao.getIdPagamento() == 0) {
-                // Se idPagamento = 0, remove o pagamento
                 existente.setPagamento(null);
                 logger.info("Pagamento removido da sessão");
             } else {

@@ -29,7 +29,6 @@ public class CarrinhoFisicoApplication {
     public CarrinhoFisico salvar(CarrinhoFisico carrinho) {
         CarrinhoFisicoModel model = carrinho.toModel();
 
-        // 1. Vincular loja (usando idLoja do carrinho)
         if (carrinho.getIdLoja() != 0) {
             try {
                 LojaModel loja = lojaRepository.getReferenceById(carrinho.getIdLoja());
@@ -39,7 +38,6 @@ public class CarrinhoFisicoApplication {
             }
         }
 
-        // 2. Vincular sessão (se existir)
         if (carrinho.getIdCarrinhoSessao() != 0) {
             try {
                 CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(carrinho.getIdCarrinhoSessao());
@@ -70,10 +68,8 @@ public class CarrinhoFisicoApplication {
             return false;
         }
 
-        // Buscar o carrinho existente
         CarrinhoFisicoModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos (não nulos)
         if (novoCarrinho.getCodigoQr() != null) {
             existente.setCodigoQr(novoCarrinho.getCodigoQr());
         }
@@ -86,7 +82,6 @@ public class CarrinhoFisicoApplication {
             existente.setCriadoEm(novoCarrinho.getCriadoEm());
         }
 
-        // Atualizar relacionamento com loja se fornecido (diferente de 0)
         if (novoCarrinho.getIdLoja() != 0) {
             try {
                 LojaModel loja = lojaRepository.getReferenceById(novoCarrinho.getIdLoja());
@@ -96,7 +91,6 @@ public class CarrinhoFisicoApplication {
             }
         }
 
-        // Atualizar relacionamento com sessão se fornecido (diferente de 0)
         if (novoCarrinho.getIdCarrinhoSessao() != 0) {
             try {
                 CarrinhoSessaoModel sessao = sessaoRepository.getReferenceById(novoCarrinho.getIdCarrinhoSessao());

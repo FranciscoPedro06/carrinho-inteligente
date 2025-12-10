@@ -22,7 +22,6 @@ public class ProdutoModel {
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
-    // Relação N:1 com Loja
     @ManyToOne
     @JoinColumn(name = "id_loja", referencedColumnName = "idLoja")
     private LojaModel loja;
@@ -42,7 +41,6 @@ public class ProdutoModel {
         this.criadoEm = criadoEm;
     }
 
-    // Getters e Setters
     public int getIdProduto() { return idProduto; }
     public void setIdProduto(int idProduto) { this.idProduto = idProduto; }
 
@@ -61,7 +59,6 @@ public class ProdutoModel {
     public LojaModel getLoja() { return loja; }
     public void setLoja(LojaModel loja) { this.loja = loja; }
 
-    // Método auxiliar para obter ID da loja
     public int getIdLoja() {
         return loja != null ? loja.getIdLoja() : 0;
     }

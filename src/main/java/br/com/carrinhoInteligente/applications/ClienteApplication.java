@@ -28,14 +28,12 @@ public class ClienteApplication {
             throw new IllegalArgumentException("Cliente não pode ser nulo");
         }
 
-        // Validação básica
         if (cliente.getNome() == null || cliente.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome do cliente é obrigatório");
         }
 
         ClienteModel model = cliente.toModel();
 
-        // Define data de criação se não informada
         if (model.getCriadoEm() == null) {
             model.setCriadoEm(LocalDateTime.now());
         }
@@ -67,10 +65,8 @@ public class ClienteApplication {
             return false;
         }
 
-        // Buscar o cliente existente
         ClienteModel existente = repository.findById(id).orElseThrow();
 
-        // Atualizar APENAS os campos que foram fornecidos (não nulos)
         if (clienteAtualizado.getNome() != null && !clienteAtualizado.getNome().isEmpty()) {
             existente.setNome(clienteAtualizado.getNome());
         }
@@ -82,9 +78,6 @@ public class ClienteApplication {
         if (clienteAtualizado.getTelefone() != null && !clienteAtualizado.getTelefone().isEmpty()) {
             existente.setTelefone(clienteAtualizado.getTelefone());
         }
-
-        // Data de criação não deve ser alterada
-        // Se quiser atualizar, pode adicionar um campo "atualizadoEm"
 
         repository.save(existente);
         logger.info("Cliente atualizado com sucesso: ID {}", id);

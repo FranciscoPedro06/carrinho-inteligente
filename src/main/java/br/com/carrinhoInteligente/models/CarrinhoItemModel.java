@@ -22,12 +22,10 @@ public class CarrinhoItemModel {
     @Column(name = "adicionado_em")
     private LocalDateTime adicionadoEm;
 
-    //  Relação N:1 com Sessão
     @ManyToOne
     @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id")
     private CarrinhoSessaoModel carrinhoSessao;
 
-    //  Relação N:1 com Produto
     @ManyToOne
     @JoinColumn(name = "id_produto", referencedColumnName = "idProduto")
     private ProdutoModel produto;
@@ -41,7 +39,6 @@ public class CarrinhoItemModel {
         this.adicionadoEm = adicionadoEm;
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -63,7 +60,6 @@ public class CarrinhoItemModel {
     public ProdutoModel getProduto() { return produto; }
     public void setProduto(ProdutoModel produto) { this.produto = produto; }
 
-    // Métodos auxiliares para obter IDs
     public int getIdCarrinhoSessao() {
         return carrinhoSessao != null ? carrinhoSessao.getId() : 0;
     }

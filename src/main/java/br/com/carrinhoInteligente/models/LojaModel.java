@@ -18,11 +18,9 @@ public class LojaModel {
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
-    // Relação 1:N com CarrinhoFisico
     @OneToMany(mappedBy = "loja", cascade = CascadeType.ALL)
     private List<CarrinhoFisicoModel> carrinhosFisicos = new ArrayList<>();
 
-    // Relação 1:N com Produto
     @OneToMany(mappedBy = "loja", cascade = CascadeType.ALL)
     private List<ProdutoModel> produtos = new ArrayList<>();
 
@@ -33,7 +31,6 @@ public class LojaModel {
         this.criadoEm = criadoEm;
     }
 
-    // Getters e Setters
     public int getIdLoja() { return idLoja; }
     public void setIdLoja(int idLoja) { this.idLoja = idLoja; }
 

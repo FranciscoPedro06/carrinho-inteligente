@@ -35,7 +35,6 @@ public class EstoqueModel {
         this.criadoEm = LocalDateTime.now();
     }
 
-    // Getters e Setters
     public int getIdEstoque() { return idEstoque; }
     public void setIdEstoque(int idEstoque) { this.idEstoque = idEstoque; }
 

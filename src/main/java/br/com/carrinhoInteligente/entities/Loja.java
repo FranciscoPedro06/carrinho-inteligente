@@ -37,7 +37,6 @@ public class Loja {
         return model;
     }
 
-    // Getters e Setters
     public int getIdLoja() { return idLoja; }
     public void setIdLoja(int idLoja) { this.idLoja = idLoja; }
 
