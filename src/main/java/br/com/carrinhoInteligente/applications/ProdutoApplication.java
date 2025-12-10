@@ -1,7 +1,9 @@
 package br.com.carrinhoInteligente.applications;
 
 import br.com.carrinhoInteligente.entities.Produto;
+import br.com.carrinhoInteligente.models.LojaModel;
 import br.com.carrinhoInteligente.models.ProdutoModel;
+import br.com.carrinhoInteligente.repositories.LojaRepository;
 import br.com.carrinhoInteligente.repositories.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +15,28 @@ import java.util.Optional;
 public class ProdutoApplication {
 
     private final ProdutoRepository repository;
+    private final LojaRepository lojaRepository;
 
-    public ProdutoApplication(ProdutoRepository repository) {
+    public ProdutoApplication(ProdutoRepository repository, LojaRepository lojaRepository) {
         this.repository = repository;
+        this.lojaRepository = lojaRepository;
     }
 
     public void salvar(Produto produto) {
         ProdutoModel model = produto.toModel();
 
-        // Define a data de criação caso seja novo
         if (model.getCriadoEm() == null) {
             model.setCriadoEm(LocalDateTime.now());
         }
 
+        // Vincular a loja
+        LojaModel loja = lojaRepository.getReferenceById(model.getIdLoja());
+
+        model.setLoja(loja);
+
         repository.save(model);
     }
+
 
     public List<Produto> listarTodos() {
         return repository.findAll()
@@ -48,6 +57,10 @@ public class ProdutoApplication {
 
         ProdutoModel model = produtoAtualizado.toModel();
         model.setIdProduto(id);
+
+        // Vincular loja novamente no update
+        LojaModel loja = lojaRepository.getReferenceById(model.getIdLoja());
+        model.setLoja(loja);
 
         repository.save(model);
         return true;
