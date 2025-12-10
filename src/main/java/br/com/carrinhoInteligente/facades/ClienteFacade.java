@@ -16,8 +16,8 @@ public class ClienteFacade {
         this.application = application;
     }
 
-    public void salvar(Cliente cliente) {
-        application.salvar(cliente);
+    public Cliente salvar(Cliente cliente) {
+        return application.salvar(cliente);
     }
 
     public List<Cliente> listarTodos() {

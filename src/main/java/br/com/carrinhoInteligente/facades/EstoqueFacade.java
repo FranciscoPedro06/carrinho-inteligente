@@ -16,8 +16,8 @@ public class EstoqueFacade {
         this.application = application;
     }
 
-    public void salvar(Estoque estoque) {
-        application.salvar(estoque);
+    public Estoque salvar(Estoque estoque) {
+        return application.salvar(estoque);
     }
 
     public List<Estoque> listarTodos() {

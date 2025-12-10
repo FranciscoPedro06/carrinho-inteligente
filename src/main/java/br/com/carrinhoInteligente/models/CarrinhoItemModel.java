@@ -22,20 +22,12 @@ public class CarrinhoItemModel {
     @Column(name = "adicionado_em")
     private LocalDateTime adicionadoEm;
 
-    @Column(name = "carrinho_sessao_id")
-    private int idCarrinhoSessao;
-
-    //  Relação N:1 com Sessão
     @ManyToOne
-    @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id", updatable = false, insertable = false)
+    @JoinColumn(name = "carrinho_sessao_id", referencedColumnName = "id")
     private CarrinhoSessaoModel carrinhoSessao;
 
-    @Column(name = "id_produto")
-    private int idProduto;
-
-    //  Relação N:1 com Produto
     @ManyToOne
-    @JoinColumn(name = "id_produto", referencedColumnName = "idProduto", insertable = false, updatable = false)
+    @JoinColumn(name = "id_produto", referencedColumnName = "idProduto")
     private ProdutoModel produto;
 
     public CarrinhoItemModel() {}
@@ -47,11 +39,7 @@ public class CarrinhoItemModel {
         this.adicionadoEm = adicionadoEm;
     }
 
-    public int getId() {
-        return id;
-    }
-
-
+    public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public int getQuantidade() { return quantidade; }
@@ -66,19 +54,17 @@ public class CarrinhoItemModel {
     public LocalDateTime getAdicionadoEm() { return adicionadoEm; }
     public void setAdicionadoEm(LocalDateTime adicionadoEm) { this.adicionadoEm = adicionadoEm; }
 
-    public CarrinhoSessaoModel getCarrinhoSessao() {
-        return carrinhoSessao;
+    public CarrinhoSessaoModel getCarrinhoSessao() { return carrinhoSessao; }
+    public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) { this.carrinhoSessao = carrinhoSessao; }
+
+    public ProdutoModel getProduto() { return produto; }
+    public void setProduto(ProdutoModel produto) { this.produto = produto; }
+
+    public int getIdCarrinhoSessao() {
+        return carrinhoSessao != null ? carrinhoSessao.getId() : 0;
     }
 
-    public void setCarrinhoSessao(CarrinhoSessaoModel carrinhoSessao) {
-        this.carrinhoSessao = carrinhoSessao;
-    }
-
-    public ProdutoModel getProduto() {
-        return produto;
-    }
-
-    public void setProduto(ProdutoModel produto) {
-        this.produto = produto;
+    public int getIdProduto() {
+        return produto != null ? produto.getIdProduto() : 0;
     }
 }

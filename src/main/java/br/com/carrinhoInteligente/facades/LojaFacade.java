@@ -5,6 +5,7 @@ import br.com.carrinhoInteligente.entities.Loja;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class LojaFacade {
@@ -23,7 +24,7 @@ public class LojaFacade {
         return application.listarTodas();
     }
 
-    public Loja buscarPorId(int id) {
+    public Optional<Loja> buscarPorId(int id) {
         return application.buscarPorId(id);
     }
 

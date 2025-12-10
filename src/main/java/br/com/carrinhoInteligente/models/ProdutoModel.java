@@ -22,12 +22,8 @@ public class ProdutoModel {
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
-    @Column(name = "id_loja")
-    private int idLoja;
-
     @ManyToOne
-    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja",
-            insertable = false, updatable = false)
+    @JoinColumn(name = "id_loja", referencedColumnName = "idLoja")
     private LojaModel loja;
 
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
@@ -60,15 +56,28 @@ public class ProdutoModel {
     public LocalDateTime getCriadoEm() { return criadoEm; }
     public void setCriadoEm(LocalDateTime criadoEm) { this.criadoEm = criadoEm; }
 
-    public int getIdLoja() { return idLoja; }
-    public void setIdLoja(int idLoja) { this.idLoja = idLoja; }
-
     public LojaModel getLoja() { return loja; }
     public void setLoja(LojaModel loja) { this.loja = loja; }
+
+    public int getIdLoja() {
+        return loja != null ? loja.getIdLoja() : 0;
+    }
 
     public EstoqueModel getEstoque() { return estoque; }
     public void setEstoque(EstoqueModel estoque) { this.estoque = estoque; }
 
     public List<CarrinhoItemModel> getItens() { return itens; }
     public void setItens(List<CarrinhoItemModel> itens) { this.itens = itens; }
+
+    @Override
+    public String toString() {
+        return "ProdutoModel{" +
+                "idProduto=" + idProduto +
+                ", codigoBarras='" + codigoBarras + '\'' +
+                ", nome='" + nome + '\'' +
+                ", preco=" + preco +
+                ", criadoEm=" + criadoEm +
+                ", loja=" + (loja != null ? loja.getIdLoja() : "null") +
+                '}';
+    }
 }
